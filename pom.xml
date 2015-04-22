@@ -1,25 +1,39 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>se.face</groupId>
+	<groupId>se.face.moviews</groupId>
 	<artifactId>moviews</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<name>Moviews</name>
 	<packaging>pom</packaging>
-	
+
 	<modules>
 		<module>moviews-modules</module>
 	</modules>
 
 	<properties>
 		<hibernate.version>4.3.9.Final</hibernate.version>
-		<spring.version>4.1.6.RELEASE</spring.version>
+		<spring.version>4.0.6.RELEASE</spring.version>
 		<javax.servlet.version>3.1.0</javax.servlet.version>
 		<junit.version>4.12</junit.version>
+		<jersey.version>2.17</jersey.version>
+		<jersey.spring.version>2.17</jersey.spring.version>
+		<jackson.version>1.9.13</jackson.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.glassfish.jersey.core</groupId>
+				<artifactId>jersey-server</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.jersey.ext</groupId>
+				<artifactId>jersey-spring3</artifactId>
+				<version>${jersey.spring.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
@@ -32,7 +46,34 @@
 				<version>${javax.servlet.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>moviews-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>moviews-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
 			<!-- Spring -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>

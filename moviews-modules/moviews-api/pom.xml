@@ -2,14 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>se.face.moviews</groupId>
-    <artifactId>moviews</artifactId>
+    <artifactId>moviews-modules</artifactId>
     <version>0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>moviews-modules</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>moviews-api</module>
-  	<module>moviews-core</module>
-  	<module>moviews-web</module>
-  </modules>
+  <artifactId>moviews-api</artifactId>
 </project>
