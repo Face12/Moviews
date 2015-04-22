@@ -8,23 +8,21 @@ import org.h2.jdbcx.JdbcConnectionPool;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import se.face.moviews.domain.dao.DaoPackage;
 import se.face.moviews.domain.dao.MovieDao;
 import se.face.moviews.domain.dao.MovieDaoImpl;
 import se.face.moviews.domain.entity.EntityPackage;
 
 @EnableTransactionManagement
 @Configuration
-public class TestConfiguration {	
-	@Bean
-	public MovieDao movieDao() {
-		return new MovieDaoImpl();
-	}	
-	
+@ComponentScan(basePackageClasses = {DaoPackage.class})
+public class TestConfiguration {		
 	@Bean
 	@Autowired
 	public LocalSessionFactoryBean sessionFactory(DataSource inMemoryDataSource, Properties hibernateProperties){
