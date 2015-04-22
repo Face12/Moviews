@@ -5,6 +5,7 @@ package se.face.moviews.domain.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 
 /**
  * @author Samuel
@@ -36,7 +38,7 @@ public class CastAndCrewMember {
 	@Column
 	private String role;
 	
-	@ManyToMany(mappedBy="castAndCrew", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy="castAndCrew", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Movie> inMovies;
 	
 	public CastAndCrewMember() {}

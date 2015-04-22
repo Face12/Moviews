@@ -11,12 +11,13 @@ import se.face.moviews.domain.entity.Movie;
  */
 public interface MovieDao {
 
-	public int save(Movie newMovie);
+	public int save(Movie movie);
 
+	public void update(Movie movie);
+	
 	public Movie get(int id);
 
 	public Movie getWithCastAndCrew(int id);
-
 }
 
 

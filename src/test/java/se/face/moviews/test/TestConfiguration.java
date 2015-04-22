@@ -15,8 +15,6 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import se.face.moviews.domain.dao.DaoPackage;
-import se.face.moviews.domain.dao.MovieDao;
-import se.face.moviews.domain.dao.MovieDaoImpl;
 import se.face.moviews.domain.entity.EntityPackage;
 
 @EnableTransactionManagement

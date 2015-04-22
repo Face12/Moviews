@@ -24,9 +24,15 @@ public class MovieDaoImpl implements MovieDao {
 	SessionFactory sessionFactory;  
 	
 	@Override
-	public int save(Movie newMovie) {
+	public int save(Movie movie) {
 		Session session = sessionFactory.getCurrentSession();
-		return (Integer) session.save(newMovie);
+		return (Integer) session.save(movie);
+	}
+
+	@Override
+	public void update(Movie movie) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(movie);
 	}
 
 	@Override
@@ -43,5 +49,4 @@ public class MovieDaoImpl implements MovieDao {
 			.setFetchMode("castAndCrew", FetchMode.JOIN);
 		return (Movie) criteria.uniqueResult();
 	}
-
 }
