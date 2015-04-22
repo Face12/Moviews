@@ -1,7 +1,7 @@
 /**
  * 
  */
-package se.face.moviews.domain.dao;
+package se.face.moviews.core.domain.dao;
 
 /**
  * @author Samuel

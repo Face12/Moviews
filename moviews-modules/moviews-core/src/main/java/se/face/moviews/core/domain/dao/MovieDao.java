@@ -1,9 +1,9 @@
 /**
  * 
  */
-package se.face.moviews.domain.dao;
+package se.face.moviews.core.domain.dao;
 
-import se.face.moviews.domain.entity.Movie;
+import se.face.moviews.core.domain.entity.Movie;
 
 /**
  * @author Samuel

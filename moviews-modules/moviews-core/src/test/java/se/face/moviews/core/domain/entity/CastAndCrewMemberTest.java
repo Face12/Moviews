@@ -1,14 +1,14 @@
 /**
  * 
  */
-package se.face.moviews.domain.entity;
+package se.face.moviews.core.domain.entity;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import se.face.moviews.domain.entity.CastAndCrewMember;
-import se.face.moviews.test.TestObjectFactory;
+import se.face.moviews.core.domain.entity.CastAndCrewMember;
+import se.face.moviews.core.test.TestObjectFactory;
 
 /**
  * @author Samuel

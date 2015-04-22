@@ -1,4 +1,4 @@
-package se.face.moviews.test;
+package se.face.moviews.core.test;
 
 import java.util.Properties;
 
@@ -14,8 +14,8 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import se.face.moviews.domain.dao.DaoPackage;
-import se.face.moviews.domain.entity.EntityPackage;
+import se.face.moviews.core.domain.dao.DaoPackage;
+import se.face.moviews.core.domain.entity.EntityPackage;
 
 @EnableTransactionManagement
 @Configuration

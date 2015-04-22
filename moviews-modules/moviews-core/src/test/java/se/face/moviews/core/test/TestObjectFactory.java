@@ -1,10 +1,10 @@
 /**
  * 
  */
-package se.face.moviews.test;
+package se.face.moviews.core.test;
 
-import se.face.moviews.domain.entity.CastAndCrewMember;
-import se.face.moviews.domain.entity.Movie;
+import se.face.moviews.core.domain.entity.CastAndCrewMember;
+import se.face.moviews.core.domain.entity.Movie;
 
 /**
  * @author Samuel

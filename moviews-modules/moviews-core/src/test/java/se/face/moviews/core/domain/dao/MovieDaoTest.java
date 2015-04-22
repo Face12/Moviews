@@ -1,7 +1,7 @@
 /**
  * 
  */
-package se.face.moviews.domain.dao;
+package se.face.moviews.core.domain.dao;
 
 import static org.junit.Assert.*;
 
@@ -12,10 +12,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import se.face.moviews.domain.dao.MovieDao;
-import se.face.moviews.domain.entity.Movie;
-import se.face.moviews.test.TestConfiguration;
-import se.face.moviews.test.TestObjectFactory;
+import se.face.moviews.core.domain.dao.MovieDao;
+import se.face.moviews.core.domain.entity.Movie;
+import se.face.moviews.core.test.TestConfiguration;
+import se.face.moviews.core.test.TestObjectFactory;
 
 /**
  * @author Samuel

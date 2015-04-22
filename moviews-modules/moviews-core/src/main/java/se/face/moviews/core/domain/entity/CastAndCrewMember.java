@@ -1,7 +1,7 @@
 /**
  * 
  */
-package se.face.moviews.domain.entity;
+package se.face.moviews.core.domain.entity;
 
 import java.util.Set;
 

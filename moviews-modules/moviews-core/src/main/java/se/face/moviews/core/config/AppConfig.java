@@ -1,11 +1,12 @@
 /**
  * 
  */
-package se.face.moviews.config;
+package se.face.moviews.core.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import se.face.moviews.domain.dao.DaoPackage;
+
+import se.face.moviews.core.domain.dao.DaoPackage;
 
 /**
  * @author Samuel

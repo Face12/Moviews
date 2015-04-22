@@ -1,7 +1,7 @@
 /**
  * 
  */
-package se.face.moviews.domain.dao;
+package se.face.moviews.core.domain.dao;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
@@ -11,7 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import se.face.moviews.domain.entity.Movie;
+import se.face.moviews.core.domain.entity.Movie;
 
 /**
  * @author Samuel
