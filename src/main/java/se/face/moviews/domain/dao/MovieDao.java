@@ -15,6 +15,8 @@ public interface MovieDao {
 
 	public Movie get(int id);
 
+	public Movie getWithCastAndCrew(int id);
+
 }
 
 

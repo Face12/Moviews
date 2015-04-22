@@ -35,4 +35,12 @@ public class MovieDaoTest {
 		Movie movie = movieDao.get(id);
 		assertEquals(id, movie.getMovieId());
 	}
+	
+	@Transactional
+	@Test
+	public void savedMovieShouldHaveCastAndCrewMembers(){
+		int id = movieDao.save(TestObjectFactory.newMovie());
+		Movie movie = movieDao.getWithCastAndCrew(id);
+		assertTrue(movie.getCastAndCrew().size() > 0);
+	}
 }

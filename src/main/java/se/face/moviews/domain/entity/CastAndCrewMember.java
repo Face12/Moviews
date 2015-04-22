@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class CastAndCrewMember {
 	@Column
 	private String role;
 	
-	@ManyToMany(mappedBy="castAndCrew")
+	@ManyToMany(mappedBy="castAndCrew", fetch = FetchType.LAZY)
 	private Set<Movie> inMovies;
 	
 	public CastAndCrewMember() {}
