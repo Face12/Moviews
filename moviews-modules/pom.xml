@@ -11,5 +11,6 @@
   	<module>moviews-api</module>
   	<module>moviews-core</module>
   	<module>moviews-web</module>
+  	<module>moviews-integrationtest</module>
   </modules>
 </project>

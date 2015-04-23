@@ -45,6 +45,9 @@ Temporary Items
 # Maven
 target
 
+# Citrus
+test-output
+
 # Eclipse
 .settings
 .project
