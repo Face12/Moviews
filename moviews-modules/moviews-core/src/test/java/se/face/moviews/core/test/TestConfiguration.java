@@ -16,10 +16,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import se.face.moviews.core.domain.dao.DaoPackage;
 import se.face.moviews.core.domain.entity.EntityPackage;
+import se.face.moviews.core.service.ServicePackage;
 
 @EnableTransactionManagement
 @Configuration
-@ComponentScan(basePackageClasses = {DaoPackage.class})
+@ComponentScan(basePackageClasses = {DaoPackage.class, ServicePackage.class})
 public class TestConfiguration {		
 	@Bean
 	@Autowired

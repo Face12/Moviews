@@ -13,12 +13,12 @@ import se.face.moviews.core.test.TestObjectFactory;
 public class MovieTest {
 	@Test
 	public void shouldCreateMovie(){
-		TestObjectFactory.newMovie();
+		TestObjectFactory.movieEntity();
 	}
 	
 	@Test
 	public void shouldListCastAndCrew(){
-		Movie movie = TestObjectFactory.newMovie();
+		Movie movie = TestObjectFactory.movieEntity();
 		Set<CastAndCrewMember> list = movie.getCastAndCrew();
 		assertTrue("No cast and crew members", list.size() > 0);
 	}

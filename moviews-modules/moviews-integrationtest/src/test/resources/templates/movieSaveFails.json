@@ -1,0 +1,16 @@
+{
+	"id" : -1000
+	"originalTitle" : "movieTestMovie",
+	"castAndCrew" : [
+		{
+			"firstName" : "Jane",
+			"lastName" : "Doe",
+			"role" : "Director"
+		},
+		{
+			"firstName" : "John",
+			"lastName" : "Doe",
+			"role" : "Actor"
+		}
+	]
+}

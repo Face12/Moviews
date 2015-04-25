@@ -31,7 +31,7 @@ public class MovieDaoTest {
 	@Transactional
 	@Test
 	public void shouldSaveThenGet(){
-		int id = movieDao.save(TestObjectFactory.newMovie());
+		Integer id = movieDao.save(TestObjectFactory.movieEntity());
 		Movie movie = movieDao.get(id);
 		assertEquals(id, movie.getMovieId());
 	}
@@ -39,7 +39,7 @@ public class MovieDaoTest {
 	@Transactional
 	@Test
 	public void savedMovieShouldHaveCastAndCrewMembers(){
-		int id = movieDao.save(TestObjectFactory.newMovie());
+		int id = movieDao.save(TestObjectFactory.movieEntity());
 		Movie movie = movieDao.getWithCastAndCrew(id);
 		assertTrue(movie.getCastAndCrew().size() > 0);
 	}

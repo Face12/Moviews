@@ -22,21 +22,21 @@ import javax.persistence.Table;
  * @author Samuel
  *
  */
-@Table(name = "Movie")
+@Table(name = "movie")
 @Entity
 public class Movie {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private int movieId;
+	private Integer movieId;
 	
 	@Column
 	private String originalTitle;
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(
-			name = "CastAndCrewInMovie",
+			name = "cast_and_crew_in_movie",
 			joinColumns = {
 				@JoinColumn(name = "movieId", nullable = false, updatable = false)
 			},
@@ -51,15 +51,15 @@ public class Movie {
 		this.originalTitle = originalTitle;
 	}
 	
-	public Movie(int id){
+	public Movie(Integer id){
 		this.movieId = id;
 	}
 
-	public int getMovieId() {
+	public Integer getMovieId() {
 		return movieId;
 	}
 
-	public void setMovieId(int movieId) {
+	public void setMovieId(Integer movieId) {
 		this.movieId = movieId;
 	}
 
@@ -96,7 +96,11 @@ public class Movie {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + movieId;
+		result = prime * result
+				+ ((castAndCrew == null) ? 0 : castAndCrew.hashCode());
+		result = prime * result + ((movieId == null) ? 0 : movieId.hashCode());
+		result = prime * result
+				+ ((originalTitle == null) ? 0 : originalTitle.hashCode());
 		return result;
 	}
 
@@ -112,7 +116,25 @@ public class Movie {
 			return false;
 		}
 		Movie other = (Movie) obj;
-		if (movieId != other.movieId) {
+		if (castAndCrew == null) {
+			if (other.castAndCrew != null) {
+				return false;
+			}
+		} else if (!castAndCrew.equals(other.castAndCrew)) {
+			return false;
+		}
+		if (movieId == null) {
+			if (other.movieId != null) {
+				return false;
+			}
+		} else if (!movieId.equals(other.movieId)) {
+			return false;
+		}
+		if (originalTitle == null) {
+			if (other.originalTitle != null) {
+				return false;
+			}
+		} else if (!originalTitle.equals(other.originalTitle)) {
 			return false;
 		}
 		return true;

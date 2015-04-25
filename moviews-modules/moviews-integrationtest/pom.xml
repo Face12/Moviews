@@ -1,19 +1,36 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>se.face.moviews</groupId>
-    <artifactId>moviews-modules</artifactId>
-    <version>0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>moviews-integrationtest</artifactId>
-  <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>se.face.moviews</groupId>
+		<artifactId>moviews-modules</artifactId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>moviews-integrationtest</artifactId>
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<citrus.version>2.1</citrus.version>
 		<slf4j.version>1.7.7</slf4j.version>
 		<testng.version>6.8.8</testng.version>
+		<moviews.version>0.1-SNAPSHOT</moviews.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>se.face.moviews</groupId>
+			<artifactId>moviews-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+		</dependency>
+
 		<!-- Citrus -->
 		<dependency>
 			<groupId>com.consol.citrus</groupId>

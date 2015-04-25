@@ -17,7 +17,7 @@ import se.face.moviews.core.test.TestObjectFactory;
 public class CastAndCrewMemberTest {
 	@Test
 	public void shouldCreateCastAndCrewMember(){
-		TestObjectFactory.newCastAndCrewMember();
+		TestObjectFactory.castAndCrewMemberEntity();
 	}
 	
 	@Test
