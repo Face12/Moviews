@@ -1,1 +1,3 @@
+Move spring config into java-class instead if xml in integration-test
+Configure "hooks" in integration tests
 Parameterize database connection properties
