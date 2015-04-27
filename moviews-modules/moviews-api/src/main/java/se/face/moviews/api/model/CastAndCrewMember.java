@@ -7,7 +7,7 @@ package se.face.moviews.api.model;
  * @author Samuel
  *
  */
-public class CastAndCrewMember {
+public class CastAndCrewMember implements Resource{
 	
 	private Integer id;
 	private String firstName;
@@ -27,6 +27,7 @@ public class CastAndCrewMember {
 		this.role = role;
 	}
 	
+	@Override
 	public Integer getId() {
 		return id;
 	}

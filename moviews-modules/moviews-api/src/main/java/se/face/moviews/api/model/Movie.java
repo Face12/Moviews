@@ -10,7 +10,7 @@ import java.util.List;
  * @author Samuel
  *
  */
-public class Movie {	
+public class Movie implements Resource {	
 	private Integer id;
 	private String originalTitle;
 	private List<CastAndCrewMember> castAndCrew = new ArrayList<CastAndCrewMember>();
@@ -30,6 +30,7 @@ public class Movie {
 		this.castAndCrew.add(castAndCrewMember);
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}

@@ -1,3 +1,2 @@
-Interceptor for MoviewsController
 Let integration tests deploy moviews-web.war into an embedded Tomcat
 Parameterize database connection properties
