@@ -74,12 +74,16 @@ public class MoviesTest extends TestNGCitrusTestBuilder {
 		});
 		
     	query(dataSource)
-			.statement("select mov.movieId from movie mov"+
+			.statement("select mov.movieId, cac.castAndCrewMemberId from movie mov"+
 					" inner join cast_and_crew_in_movie cacim on cacim.movieId=mov.movieId"+
 					" inner join cast_and_crew_member cac on cac.castAndCrewMemberId=cacim.castAndCrewMemberId"+
 					" "+SAVED_MOVIE_SELECT_WHERE
 					)
-			.validate("movieId", "@ignore@", "@ignore@");
+			.validate("movieId", "@ignore@", "@ignore@")
+			;
+    	query(dataSource)
+    		.statement("select MOVIEID from movie "+SAVED_MOVIE_SELECT_WHERE)
+    		.extract("MOVIEID", "savedMovieId");
     }
     
     @CitrusTest(name = "SaveShouldFailTest")

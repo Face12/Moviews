@@ -19,13 +19,13 @@
 		request-url="http://dummy" request-method="GET"
 		content-type="application/json" timeout="60000" />
 		
-	<citrus:before-test id="cleanDBFromStoredData" test="*SavedTest" package="se.face.moviews.integrationtest.tests">
+	<citrus:after-test id="cleanDBFromStoredData" test="*SavedTest" package="se.face.moviews.integrationtest.tests">
 		<citrus:actions>
         	<citrus-test:sql datasource="dataSource">
-            	<citrus-test:statement>DELETE FROM cast_and_crew_in_movie</citrus-test:statement>
-            	<citrus-test:statement>DELETE FROM cast_and_crew_member</citrus-test:statement>
-            	<citrus-test:statement>DELETE FROM movie</citrus-test:statement>
+            	<citrus-test:statement>DELETE FROM cast_and_crew_in_movie where movieId=${savedMovieId}</citrus-test:statement>
+            	<citrus-test:statement>DELETE cac FROM cast_and_crew_member cac left join cast_and_crew_in_movie cacim on cac.castAndCrewMemberId=cacim.castAndCrewMemberId where cacim.castAndCrewMemberId is null</citrus-test:statement>
+            	<citrus-test:statement>DELETE FROM movie where movieId=${savedMovieId}</citrus-test:statement>
         	</citrus-test:sql>
     	</citrus:actions>
-	</citrus:before-test>
+	</citrus:after-test>
 </beans>
