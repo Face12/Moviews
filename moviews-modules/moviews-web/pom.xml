@@ -52,6 +52,7 @@
 				<configuration>
 					<warsourcedirectory>src/main/webapp</warsourcedirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<attachClasses>true</attachClasses>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -61,6 +61,12 @@
 
 			<dependency>
 				<groupId>${project.groupId}</groupId>
+				<artifactId>moviews-web</artifactId>
+				<version>${project.version}</version>
+				<classifier>classes</classifier>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
 				<artifactId>moviews-core</artifactId>
 				<version>${project.version}</version>
 			</dependency>

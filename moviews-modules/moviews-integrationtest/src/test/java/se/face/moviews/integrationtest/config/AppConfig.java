@@ -17,7 +17,7 @@ import com.consol.citrus.validation.json.JsonTextMessageValidator;
 @Configuration
 @ImportResource("classpath:citrus-context.xml")
 public class AppConfig {
-	
+
 	@Bean
 	public JsonTextMessageValidator jsonTextMessageValidator(){
 		return new JsonTextMessageValidator();
@@ -28,7 +28,14 @@ public class AppConfig {
 		DriverManagerDataSource driverManagerDataSource = 
 				new DriverManagerDataSource("jdbc:mysql://localhost:3306/test", "root", "MyNewPass");
 		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		
+
 		return driverManagerDataSource;
+	}
+
+	@Bean(destroyMethod = "destroy")
+	public TomcatRunner tomcatRunner(){
+		TomcatRunner tomcatRunner = new TomcatRunner();
+		tomcatRunner.createAndStart();
+		return tomcatRunner;
 	}
 }

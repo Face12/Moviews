@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 
 import se.face.moviews.api.model.Movie;
 import se.face.moviews.integrationtest.config.AppConfig;
+import se.face.moviews.integrationtest.config.TomcatRunner;
 import se.face.moviews.integrationtest.validation.HTTPStatusValidationCallback;
 import se.face.moviews.integrationtest.validation.JsonValidationCallback;
 
@@ -30,6 +31,9 @@ import static org.testng.Assert.*;
 public class MoviesTest extends TestNGCitrusTestBuilder {
 	@Autowired
 	private DataSource dataSource;
+	
+	@Autowired
+	private TomcatRunner tomcatRunner;
 	
 	private static final String SAVED_MOVIE_TITLE = "movieTestMovie";
 	private static final String SAVED_MOVIE_SELECT_WHERE = "where originalTitle='"+SAVED_MOVIE_TITLE+"'";
