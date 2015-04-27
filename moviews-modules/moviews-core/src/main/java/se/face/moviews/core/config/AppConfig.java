@@ -51,7 +51,7 @@ public class AppConfig {
 	public Properties hibernateProperties(){
 		//TODO Parameteize
 		Properties properties = new Properties();
-		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLInnoDBDialect");
+		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
 		properties.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
 		properties.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/test");
 		properties.setProperty("hibernate.hbm2ddl.auto", "validate");

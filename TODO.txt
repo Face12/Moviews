@@ -1,3 +1,4 @@
-Move spring config into java-class instead if xml in integration-test
+Move spring config into java-class instead of xml in integration-test
 Configure "hooks" in integration tests
+Let integration tests deploy moviews-web.war into an embedded Tomcat
 Parameterize database connection properties
