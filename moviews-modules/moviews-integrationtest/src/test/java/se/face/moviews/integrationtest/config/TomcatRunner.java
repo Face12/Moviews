@@ -18,21 +18,24 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
  */
 public class TomcatRunner {
 	private Tomcat tomcat;
+
+	private static final String EMBEDDED_TOMCAT_PATH = "/embeddedTomcat";
+	private static final String WAR_FILE_NAME = "moviews-web.war";
+	private static final String CONTEXT_PATH = "/moviews-web";
 	
 	public void createAndStart(){
 		try {
 			tomcat = new Tomcat();
-			String workingDir = System.getProperty("java.io.tmpdir")+"/embeddedTomcat";
+			String workingDir = System.getProperty("java.io.tmpdir")+EMBEDDED_TOMCAT_PATH;
 			tomcat.setPort(8080);
 			tomcat.setBaseDir(workingDir);
 			tomcat.getHost().setAppBase(workingDir);
 			tomcat.getHost().setAutoDeploy(true);
 			tomcat.getHost().setDeployOnStartup(true);
-			String contextPath = "/moviews-web";
-			File webApp = new File(workingDir, getWarFileName());
-			deleteOLD(workingDir, contextPath);
+			File webApp = new File(workingDir, WAR_FILE_NAME);
+			deleteOLD(workingDir);
 			new ZipExporterImpl(createWebArchive()).exportTo(webApp, true);
-			tomcat.addWebapp(tomcat.getHost(), contextPath, webApp.getAbsolutePath());
+			tomcat.addWebapp(tomcat.getHost(), CONTEXT_PATH, webApp.getAbsolutePath());
 			tomcat.start();
 		} catch (Exception e) {
 			throw new IllegalStateException("Could not start tomcat!", e);
@@ -40,7 +43,7 @@ public class TomcatRunner {
 	}
 	
 	private WebArchive createWebArchive() throws Exception{
-		WebArchive webArchive = ShrinkWrap.create(WebArchive.class, getWarFileName());
+		WebArchive webArchive = ShrinkWrap.create(WebArchive.class, WAR_FILE_NAME);
 		webArchive.addPackages(true, "se.face.moviews.web");
 		addMavenDependencies(webArchive);
 		return webArchive;
@@ -55,9 +58,9 @@ public class TomcatRunner {
 		webArchive.addAsLibraries(dependencies);
 	}
 
-	private void deleteOLD(String workingDir, String contextPath) {		
-		File oldWebApp = new File(workingDir, getWarFileName());
-		File oldWorkingFolder = new File(workingDir, contextPath);
+	private void deleteOLD(String workingDir) {		
+		File oldWebApp = new File(workingDir, WAR_FILE_NAME);
+		File oldWorkingFolder = new File(workingDir, CONTEXT_PATH);
 		File oldWorkFolder = new File(workingDir, "/work");
 		try {
 			oldWebApp.delete();
@@ -83,15 +86,11 @@ public class TomcatRunner {
 		}
 	}
 	
-	private String getWarFileName() {
-		return "moviews-web.war";
+	public static void main(String[] args) throws InterruptedException{
+		TomcatRunner tomcatRunner = new TomcatRunner();
+		tomcatRunner.createAndStart();
+		System.out.println("Created sleeping");
+		Thread.sleep(20000);
+		tomcatRunner.destroy();
 	}
-	
-//	public static void main(String[] args) throws InterruptedException{
-//		TomcatRunner tomcatRunner = new TomcatRunner();
-//		tomcatRunner.createAndStart();
-//		System.out.println("Created sleeping");
-//		Thread.sleep(20000);
-//		tomcatRunner.destroy();
-//	}
 }

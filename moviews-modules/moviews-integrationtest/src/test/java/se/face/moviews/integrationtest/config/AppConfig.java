@@ -3,9 +3,12 @@
  */
 package se.face.moviews.integrationtest.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.consol.citrus.validation.json.JsonTextMessageValidator;
@@ -16,7 +19,11 @@ import com.consol.citrus.validation.json.JsonTextMessageValidator;
  */
 @Configuration
 @ImportResource("classpath:citrus-context.xml")
+@PropertySource("classpath:moviews-configuration.properties")
 public class AppConfig {
+	
+	@Autowired
+    Environment env;
 
 	@Bean
 	public JsonTextMessageValidator jsonTextMessageValidator(){
@@ -26,9 +33,12 @@ public class AppConfig {
 	@Bean
 	public DriverManagerDataSource dataSource(){
 		DriverManagerDataSource driverManagerDataSource = 
-				new DriverManagerDataSource("jdbc:mysql://localhost:3306/test", "root", "MyNewPass");
-		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-
+				new DriverManagerDataSource(
+						env.getProperty("db.url"), 
+						env.getProperty("db.user"), 
+						env.getProperty("db.password"));
+		driverManagerDataSource.setDriverClassName(env.getProperty("db.driver"));
+		
 		return driverManagerDataSource;
 	}
 

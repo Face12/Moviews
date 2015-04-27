@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
@@ -26,8 +28,13 @@ import se.face.moviews.core.domain.entity.EntityPackage;
  */
 @EnableTransactionManagement
 @Configuration
+@PropertySource("classpath:moviews-configuration.properties")
 @ComponentScan(basePackageClasses = {DaoPackage.class})
 public class AppConfig {	
+	
+	@Autowired
+    Environment env;
+	
 	@Bean
 	@Autowired
 	public LocalSessionFactoryBean sessionFactory(DataSource dataSource, Properties hibernateProperties){
@@ -49,21 +56,22 @@ public class AppConfig {
 	
 	@Bean
 	public Properties hibernateProperties(){
-		//TODO Parameteize
 		Properties properties = new Properties();
-		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
-		properties.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-		properties.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/test");
-		properties.setProperty("hibernate.hbm2ddl.auto", "validate");
+		properties.setProperty("hibernate.dialect", env.getProperty("db.hibernate.dialect"));
+		properties.setProperty("hibernate.connection.driver_class", env.getProperty("db.driver"));
+		properties.setProperty("hibernate.connection.url", env.getProperty("db.url"));
+		properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("db.hibernate.auto"));
 		return properties;
 	}
 	
 	@Bean
 	public DataSource dataSource(){
-		//TODO Parameteize
 		DriverManagerDataSource driverManagerDataSource = 
-				new DriverManagerDataSource("jdbc:mysql://localhost:3306/test", "root", "MyNewPass");
-		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+				new DriverManagerDataSource(
+						env.getProperty("db.url"), 
+						env.getProperty("db.user"), 
+						env.getProperty("db.password"));
+		driverManagerDataSource.setDriverClassName(env.getProperty("db.driver"));
 		
 		return driverManagerDataSource;
 	}
