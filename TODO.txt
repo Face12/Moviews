@@ -1,4 +1,3 @@
-Move spring config into java-class instead of xml in integration-test
-Configure "hooks" in integration tests
+Interceptor for MoviewsController
 Let integration tests deploy moviews-web.war into an embedded Tomcat
 Parameterize database connection properties

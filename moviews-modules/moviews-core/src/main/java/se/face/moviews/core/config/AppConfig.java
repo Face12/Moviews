@@ -59,7 +59,7 @@ public class AppConfig {
 	}
 	
 	@Bean
-	public DataSource inMemoryDataSource(){
+	public DataSource dataSource(){
 		//TODO Parameteize
 		DriverManagerDataSource driverManagerDataSource = 
 				new DriverManagerDataSource("jdbc:mysql://localhost:3306/test", "root", "MyNewPass");

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package se.face.moviews.integrationtest.util;
+package se.face.moviews.integrationtest.validation;
 
 import java.io.IOException;
 import java.util.Map;

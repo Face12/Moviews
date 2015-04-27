@@ -1,7 +1,7 @@
 /**
  * 
  */
-package se.face.moviews.integrationtest.util;
+package se.face.moviews.integrationtest.validation;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package se.face.moviews.integrationtest;
+package se.face.moviews.integrationtest.tests;
 
 import java.util.Map;
 
@@ -7,11 +7,13 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Test;
 
 import se.face.moviews.api.model.Movie;
-import se.face.moviews.integrationtest.util.HTTPStatusValidationCallback;
-import se.face.moviews.integrationtest.util.JsonValidationCallback;
+import se.face.moviews.integrationtest.config.AppConfig;
+import se.face.moviews.integrationtest.validation.HTTPStatusValidationCallback;
+import se.face.moviews.integrationtest.validation.JsonValidationCallback;
 
 import com.consol.citrus.dsl.annotations.CitrusTest;
 import com.consol.citrus.dsl.TestNGCitrusTestBuilder;
@@ -24,6 +26,7 @@ import static org.testng.Assert.*;
  * @author Citrus
  */
 @Test
+@ContextConfiguration(classes = AppConfig.class)
 public class MoviesTest extends TestNGCitrusTestBuilder {
 	@Autowired
 	private DataSource dataSource;
@@ -32,7 +35,7 @@ public class MoviesTest extends TestNGCitrusTestBuilder {
 	private static final String SAVED_MOVIE_SELECT_WHERE = "where originalTitle='"+SAVED_MOVIE_TITLE+"'";
 	
     @CitrusTest(name = "MoviesPingTest")
-    public void pingTest() {    	
+    public void moviesPingTest() {    	
     	send("moviewsclient")
 			.header("citrus_endpoint_uri", "${endpoint.url}/movies/ping")
 			.header("citrus_http_method", "GET")
@@ -46,7 +49,7 @@ public class MoviesTest extends TestNGCitrusTestBuilder {
     }
     
     @CitrusTest(name = "MoviesShouldBeSavedTest")
-    public void saveTest(){
+    public void moviesShouldBeSavedTest(){
     	variable("savedMovieTitle", SAVED_MOVIE_TITLE);
     	send("moviewsclient")
 			.header("citrus_endpoint_uri", "${endpoint.url}/movies")
@@ -67,21 +70,16 @@ public class MoviesTest extends TestNGCitrusTestBuilder {
 		});
 		
     	query(dataSource)
-		.statement("select mov.movieId from movie mov"+
-				" inner join cast_and_crew_in_movie cacim on cacim.movieId=mov.movieId"+
-				" inner join cast_and_crew_member cac on cac.castAndCrewMemberId=cacim.castAndCrewMemberId"+
-				" "+SAVED_MOVIE_SELECT_WHERE
-				)
-		.validate("movieId", "@ignore@", "@ignore@");
-
-    	doFinally(sql(dataSource)
-    	    .statement("DELETE FROM cast_and_crew_in_movie")
-    	    .statement("DELETE FROM cast_and_crew_member")
-	        .statement("DELETE FROM movie"));
+			.statement("select mov.movieId from movie mov"+
+					" inner join cast_and_crew_in_movie cacim on cacim.movieId=mov.movieId"+
+					" inner join cast_and_crew_member cac on cac.castAndCrewMemberId=cacim.castAndCrewMemberId"+
+					" "+SAVED_MOVIE_SELECT_WHERE
+					)
+			.validate("movieId", "@ignore@", "@ignore@");
     }
     
     @CitrusTest(name = "SaveShouldFailTest")
-    public void saveFailsTest(){
+    public void saveShouldFailTest(){
     	send("moviewsclient")
 			.header("citrus_endpoint_uri", "${endpoint.url}/movies")
 			.header("citrus_http_method", "POST")
