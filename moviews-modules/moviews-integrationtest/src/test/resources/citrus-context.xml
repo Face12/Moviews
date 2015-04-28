@@ -19,7 +19,7 @@
 		request-url="http://dummy" request-method="GET"
 		content-type="application/json" timeout="60000" />
 		
-	<citrus:after-test id="cleanDBFromStoredData" test="*SavedTest" package="se.face.moviews.integrationtest.tests">
+	<citrus:after-test id="cleanDBFromStoredData" test="*_LeavesDBDirty" package="se.face.moviews.integrationtest.tests">
 		<citrus:actions>
         	<citrus-test:sql datasource="dataSource">
             	<citrus-test:statement>DELETE FROM cast_and_crew_in_movie where movieId=${savedMovieId}</citrus-test:statement>

@@ -5,6 +5,7 @@ package se.face.moviews.core.service;
 
 import static org.junit.Assert.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,17 @@ public class MoviesServiceTest {
 	public void shouldSaveMovie(){
 		Movie movie = moviesService.saveMovie(TestObjectFactory.movieApi());
 		
+		assertMovieWithTwoCaCs(movie);
+	}
+	
+	@Test
+	public void shouldGetMovieById(){
+		Movie movie = moviesService.getMovieById(100);
+		
+		assertMovieWithTwoCaCs(movie);
+	}
+
+	private void assertMovieWithTwoCaCs(Movie movie) {
 		assertNotNull(movie.getId());
 		assertEquals(2, movie.getCastAndCrew().size());
 		movie.getCastAndCrew().forEach(c -> assertNotNull(c.getId()));

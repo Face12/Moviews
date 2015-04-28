@@ -24,7 +24,7 @@ public class ResponseBuilder<T extends Resource> {
 	
 	public ResponseEntity<T> buildCreatedResponse(UriComponentsBuilder uriBuilder, String path){
 		UriComponents uriComponents = 
-				uriBuilder.path(path+"/{id}").buildAndExpand(resource.getId());
+				uriBuilder.path(path+"/{id}").buildAndExpand(resource.getId().intValue());
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setLocation(uriComponents.toUri());
 		return new ResponseEntity<T>(resource, responseHeaders, HttpStatus.CREATED);

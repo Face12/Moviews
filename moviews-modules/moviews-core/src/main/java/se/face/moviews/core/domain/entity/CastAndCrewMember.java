@@ -111,8 +111,6 @@ public class CastAndCrewMember {
 		result = prime * result
 				+ ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result
-				+ ((inMovies == null) ? 0 : inMovies.hashCode());
-		result = prime * result
 				+ ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		return result;
@@ -142,13 +140,6 @@ public class CastAndCrewMember {
 				return false;
 			}
 		} else if (!firstName.equals(other.firstName)) {
-			return false;
-		}
-		if (inMovies == null) {
-			if (other.inMovies != null) {
-				return false;
-			}
-		} else if (!inMovies.equals(other.inMovies)) {
 			return false;
 		}
 		if (lastName == null) {

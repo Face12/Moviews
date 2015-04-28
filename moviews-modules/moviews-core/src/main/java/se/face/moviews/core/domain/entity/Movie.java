@@ -96,8 +96,6 @@ public class Movie {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((castAndCrew == null) ? 0 : castAndCrew.hashCode());
 		result = prime * result + ((movieId == null) ? 0 : movieId.hashCode());
 		result = prime * result
 				+ ((originalTitle == null) ? 0 : originalTitle.hashCode());
@@ -116,13 +114,6 @@ public class Movie {
 			return false;
 		}
 		Movie other = (Movie) obj;
-		if (castAndCrew == null) {
-			if (other.castAndCrew != null) {
-				return false;
-			}
-		} else if (!castAndCrew.equals(other.castAndCrew)) {
-			return false;
-		}
 		if (movieId == null) {
 			if (other.movieId != null) {
 				return false;

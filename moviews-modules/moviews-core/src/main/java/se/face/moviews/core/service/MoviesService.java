@@ -11,4 +11,6 @@ import se.face.moviews.api.model.Movie;
  */
 public interface MoviesService {
 	public Movie saveMovie(Movie movie);
+	
+	public Movie getMovieById(int id);
 }

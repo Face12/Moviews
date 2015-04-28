@@ -61,6 +61,7 @@ public class AppConfig {
 		properties.setProperty("hibernate.connection.driver_class", env.getProperty("db.driver"));
 		properties.setProperty("hibernate.connection.url", env.getProperty("db.url"));
 		properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("db.hibernate.auto"));
+		properties.setProperty("hibernate.show_sql", env.getProperty("db.hibernate.showsql"));
 		return properties;
 	}
 	

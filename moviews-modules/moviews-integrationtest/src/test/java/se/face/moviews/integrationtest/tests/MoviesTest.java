@@ -46,13 +46,13 @@ public class MoviesTest extends TestNGCitrusTestBuilder {
 			.messageType(MessageType.JSON);
 	
     	receive("moviewsclient")
-			.header("citrus_http_status_code", "200")
+			.validationCallback(new HTTPStatusValidationCallback(HttpStatus.OK))
 			.messageType(MessageType.JSON)
 			.payload(new ClassPathResource("templates/ping_response.json"))
 			;
     }
     
-    @CitrusTest(name = "MoviesShouldBeSavedTest")
+    @CitrusTest(name = "MoviesShouldBeSavedTest_LeavesDBDirty")
     public void moviesShouldBeSavedTest(){
     	variable("savedMovieTitle", SAVED_MOVIE_TITLE);
     	send("moviewsclient")
@@ -95,5 +95,23 @@ public class MoviesTest extends TestNGCitrusTestBuilder {
 			.payload(new ClassPathResource("templates/movieSaveFails.json"));
     	receive("moviewsclient")
     		.validationCallback(new HTTPStatusValidationCallback(HttpStatus.BAD_REQUEST));
+    }
+    
+    @CitrusTest(name = "ShouldRetrieveMovieInDatabase_LeavesDBDirty")
+    public void shouldRetrieveMovieInDatabase(){
+    	variable("movieToStore", SAVED_MOVIE_TITLE);
+    	sql(dataSource)
+    		.sqlResource("sql/storeMovie.sql");
+    	query(dataSource)
+    		.statement("select MOVIEID FROM movie "+SAVED_MOVIE_SELECT_WHERE)
+    		.extract("MOVIEID", "savedMovieId");
+    	send("moviewsclient")
+			.header("citrus_endpoint_uri", "${endpoint.url}/movies/${savedMovieId}")
+			.header("citrus_http_method", "GET");
+    	receive("moviewsclient")
+    		.validationCallback(new HTTPStatusValidationCallback(HttpStatus.OK))
+			.messageType(MessageType.JSON)
+			.payload(new ClassPathResource("templates/get_response.json"))
+			;
     }
 }

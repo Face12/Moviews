@@ -5,6 +5,7 @@ package se.face.moviews.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,5 +39,11 @@ public class MoviewsController {
 		Movie savedMovie = moviesService.saveMovie(movie);
 		return new ResponseBuilder<Movie>(savedMovie)
 					.buildCreatedResponse(uriBuilder, PATH);
+	}
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	public Movie getMovie(@PathVariable int id){
+		System.out.println("Retrieving movie with id: "+id);		
+		return moviesService.getMovieById(id);
 	}
 }

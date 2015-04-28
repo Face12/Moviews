@@ -23,7 +23,7 @@ public class HTTPStatusValidationCallback implements ValidationCallback {
 	
 	@Override
 	public void validate(Message message) {
-		Assert.assertEquals(httpStatus.toString(), String.valueOf(message.getHeader("citrus_http_status_code")),
+		Assert.assertEquals(String.valueOf(message.getHeader("citrus_http_status_code")), httpStatus.toString(),
 				"Unexpected status code");
 	}
 
