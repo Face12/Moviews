@@ -86,11 +86,11 @@ public class TomcatRunner {
 		}
 	}
 	
-	public static void main(String[] args) throws InterruptedException{
-		TomcatRunner tomcatRunner = new TomcatRunner();
-		tomcatRunner.createAndStart();
-		System.out.println("Created sleeping");
-		Thread.sleep(20000);
-		tomcatRunner.destroy();
-	}
+//	public static void main(String[] args) throws InterruptedException{
+//		TomcatRunner tomcatRunner = new TomcatRunner();
+//		tomcatRunner.createAndStart();
+//		System.out.println("Created sleeping");
+//		Thread.sleep(20000);
+//		tomcatRunner.destroy();
+//	}
 }
