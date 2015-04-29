@@ -16,25 +16,12 @@
 		<spring.version>4.0.6.RELEASE</spring.version>
 		<javax.servlet.version>3.1.0</javax.servlet.version>
 		<junit.version>4.12</junit.version>
-		<jersey.version>2.17</jersey.version>
-		<jersey.spring.version>2.17</jersey.spring.version>
 		<jackson.version>1.9.13</jackson.version>
 		<mysql-connector.version>5.1.9</mysql-connector.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>org.glassfish.jersey.core</groupId>
-				<artifactId>jersey-server</artifactId>
-				<version>${jersey.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.glassfish.jersey.ext</groupId>
-				<artifactId>jersey-spring3</artifactId>
-				<version>${jersey.spring.version}</version>
-			</dependency>
-
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>

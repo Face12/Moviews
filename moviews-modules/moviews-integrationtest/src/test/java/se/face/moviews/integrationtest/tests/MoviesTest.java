@@ -109,9 +109,27 @@ public class MoviesTest extends TestNGCitrusTestBuilder {
 			.header("citrus_endpoint_uri", "${endpoint.url}/movies/${savedMovieId}")
 			.header("citrus_http_method", "GET");
     	receive("moviewsclient")
-    		.validationCallback(new HTTPStatusValidationCallback(HttpStatus.OK))
+    		//.validationCallback(new HTTPStatusValidationCallback(HttpStatus.OK))
 			.messageType(MessageType.JSON)
 			.payload(new ClassPathResource("templates/get_response.json"))
+			;
+    }
+    
+    @CitrusTest(name = "ShouldFindMoviesInDatabase_LeavesDBDirty")
+    public void shouldFindMoviesInDatabase(){
+    	variable("movieToStore", SAVED_MOVIE_TITLE);
+    	sql(dataSource)
+    		.sqlResource("sql/storeMovie.sql");
+    	query(dataSource)
+    		.statement("select MOVIEID FROM movie "+SAVED_MOVIE_SELECT_WHERE)
+    		.extract("MOVIEID", "savedMovieId");
+    	send("moviewsclient")
+			.header("citrus_endpoint_uri", "${endpoint.url}/movies/search?query=${movieToStore}")
+			.header("citrus_http_method", "GET");
+    	receive("moviewsclient")
+    		//.validationCallback(new HTTPStatusValidationCallback(HttpStatus.OK))
+			.messageType(MessageType.JSON)
+			.payload(new ClassPathResource("templates/search_response.json"))
 			;
     }
 }

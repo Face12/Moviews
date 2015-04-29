@@ -3,6 +3,13 @@
  */
 package se.face.moviews.core.factory;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import se.face.moviews.api.model.Movies;
+import se.face.moviews.api.model.Movies.MovieHit;
 import se.face.moviews.core.domain.entity.CastAndCrewMember;
 import se.face.moviews.core.domain.entity.Movie;
 
@@ -35,5 +42,11 @@ public final class MovieFactory {
 			}
 		}
 		return apiMovie;
+	}
+	
+	public static Movies createSearchResult(List<Movie> resultList){
+		List<MovieHit> list = new ArrayList<MovieHit>();
+		resultList.forEach(m -> list.add(new MovieHit(m.getMovieId(), m.getOriginalTitle())));
+		return new Movies(list);
 	}
 }

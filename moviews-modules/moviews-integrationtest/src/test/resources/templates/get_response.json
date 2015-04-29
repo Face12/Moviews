@@ -1,18 +1,18 @@
 {
 	"id" : ${savedMovieId},
 	"originalTitle" : "${movieToStore}",
-	"castAndCrew" : [
+	"castAndCrew" : [	
 		{
-			"id" : @ignore@,
-			"firstName" : "Jane",
-			"lastName" : "Doe",
-			"role" : "Director"
+			"id" : "@ignore@",
+			"firstName" : "@ignore@",
+			"lastName" : "@ignore@",
+			"role" : "@ignore@"
 		},
 		{
-			"id" : @ignore@,
-			"firstName" : "John",
-			"lastName" : "Doe",
-			"role" : "Actor"
+			"id" : "@ignore@",
+			"firstName" : "@ignore@",
+			"lastName" : "@ignore@",
+			"role" : "@ignore@"
 		}
 	]
 }

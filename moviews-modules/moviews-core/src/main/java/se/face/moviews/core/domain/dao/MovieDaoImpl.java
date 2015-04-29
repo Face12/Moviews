@@ -3,10 +3,13 @@
  */
 package se.face.moviews.core.domain.dao;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -48,5 +51,16 @@ public class MovieDaoImpl implements MovieDao {
 			.add(Restrictions.idEq(id))
 			.setFetchMode("castAndCrew", FetchMode.JOIN);
 		return (Movie) criteria.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Movie> searchByOriginalTitle(String query) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		Criteria criteria = session.createCriteria(Movie.class)
+			.add(Restrictions.like("originalTitle", query, MatchMode.START));
+		
+		return criteria.list();
 	}
 }
