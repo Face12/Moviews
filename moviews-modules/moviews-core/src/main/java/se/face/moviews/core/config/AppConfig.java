@@ -8,6 +8,8 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,12 +31,14 @@ import se.face.moviews.core.domain.entity.EntityPackage;
 @EnableTransactionManagement
 @Configuration
 @PropertySource("classpath:moviews-configuration.properties")
-@ComponentScan(basePackageClasses = {DaoPackage.class})
+@ComponentScan(basePackageClasses = {DaoPackage.class, AppConfig.class})
 public class AppConfig {	
-	
+
+	private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
+
 	@Autowired
-    Environment env;
-	
+	Environment env;
+
 	@Bean
 	@Autowired
 	public LocalSessionFactoryBean sessionFactory(DataSource dataSource, Properties hibernateProperties){
@@ -44,16 +48,17 @@ public class AppConfig {
 		localSessionFactoryBean.setPackagesToScan(EntityPackage.class.getPackage().getName());
 		return localSessionFactoryBean;
 	}
-	
+
 	@Bean 
 	@Autowired
 	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory, DataSource dataSource){		
 		HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
 		hibernateTransactionManager.setDataSource(dataSource);
 		hibernateTransactionManager.setSessionFactory(sessionFactory);
+		logger.info("Created transaction manager");
 		return hibernateTransactionManager;
 	}
-	
+
 	@Bean
 	public Properties hibernateProperties(){
 		Properties properties = new Properties();
@@ -64,16 +69,18 @@ public class AppConfig {
 		properties.setProperty("hibernate.show_sql", env.getProperty("db.hibernate.showsql"));
 		return properties;
 	}
-	
+
 	@Bean
 	public DataSource dataSource(){
+		final String dbURL = env.getProperty("db.url");
+		logger.info("Using database url: "+dbURL);
 		DriverManagerDataSource driverManagerDataSource = 
 				new DriverManagerDataSource(
-						env.getProperty("db.url"), 
+						dbURL, 
 						env.getProperty("db.user"), 
 						env.getProperty("db.password"));
 		driverManagerDataSource.setDriverClassName(env.getProperty("db.driver"));
-		
+
 		return driverManagerDataSource;
 	}
 }

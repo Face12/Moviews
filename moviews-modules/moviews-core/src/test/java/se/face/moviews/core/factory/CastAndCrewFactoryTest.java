@@ -29,6 +29,8 @@ public class CastAndCrewFactoryTest {
 		assertEquals(castAndCrewMemberApi.getFirstName(), castAndCrewMember.getFirstName());
 		assertEquals(castAndCrewMemberApi.getLastName(), castAndCrewMember.getLastName());
 		assertEquals(castAndCrewMemberApi.getRole(), castAndCrewMember.getRole());
+		
+		assertNull(CastAndCrewMemberFactory.convertFromApi(null));
 	}
 	
 	@Test
@@ -39,5 +41,7 @@ public class CastAndCrewFactoryTest {
 		assertEquals(castAndCrewMember.getFirstName(), castAndCrewMemberApi.getFirstName());
 		assertEquals(castAndCrewMember.getLastName(), castAndCrewMemberApi.getLastName());
 		assertEquals(castAndCrewMember.getRole(), castAndCrewMemberApi.getRole());
+		
+		assertNull(CastAndCrewMemberFactory.convertFromEntity(null));
 	}
 }

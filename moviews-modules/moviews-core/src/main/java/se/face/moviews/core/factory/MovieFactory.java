@@ -4,10 +4,7 @@
 package se.face.moviews.core.factory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import se.face.moviews.api.model.Movies;
 import se.face.moviews.api.model.Movies.MovieHit;
 import se.face.moviews.core.domain.entity.CastAndCrewMember;
@@ -19,6 +16,7 @@ import se.face.moviews.core.domain.entity.Movie;
  */
 public final class MovieFactory {
 	public static Movie convertFromApi(se.face.moviews.api.model.Movie apiMovie){
+		if (apiMovie == null) return null;
 		Movie movie = new Movie();
 		movie.setMovieId(apiMovie.getId());
 		movie.setOriginalTitle(apiMovie.getOriginalTitle());
@@ -33,6 +31,7 @@ public final class MovieFactory {
 
 	public static se.face.moviews.api.model.Movie convertFromEntity(
 			Movie movieEntity) {
+		if (movieEntity == null) return null;
 		se.face.moviews.api.model.Movie apiMovie = 
 				new se.face.moviews.api.model.Movie(movieEntity.getOriginalTitle(), movieEntity.getMovieId());
 		if (movieEntity.getCastAndCrew() != null){

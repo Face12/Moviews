@@ -3,7 +3,10 @@
  */
 package se.face.moviews.web.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +33,8 @@ public class MoviewsController {
 	@Autowired
 	private MoviesService moviesService;
 	
+	private static final Logger logger = LoggerFactory.getLogger(MoviewsController.class);
+	
 	@RequestMapping(value = "/ping", method = RequestMethod.GET)
 	public PingResponse ping(){
 		return new PingResponse();
@@ -37,21 +42,29 @@ public class MoviewsController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie, UriComponentsBuilder uriBuilder){
-		System.out.println("Saving movie: "+movie.toString());		
+		logger.info("Saving movie");		
 		Movie savedMovie = moviesService.saveMovie(movie);
+		logger.info("Movie saved with id "+savedMovie);
 		return new ResponseBuilder<Movie>(savedMovie)
 					.buildCreatedResponse(uriBuilder, PATH);
 	}
 	
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-	public Movie getMovie(@PathVariable int id){
-		System.out.println("Retrieving movie with id: "+id);		
-		return moviesService.getMovieById(id);
+	public ResponseEntity<Movie> getMovie(@PathVariable int id){
+		logger.info("Retrieving movie with id: "+id);		
+		Movie movie = moviesService.getMovieById(id);
+		if (movie == null){
+			logger.info("Found no movie with id: "+id);	
+			return new ResponseEntity<Movie>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Movie>(movie, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/search", method = RequestMethod.GET)
-	public Movies search(@RequestParam String query){
-		System.out.println("Searching for: "+query);
-		return moviesService.search(query);
+	public ResponseEntity<Movies> search(@RequestParam String query){
+		logger.info("Searching for: "+query);
+		Movies movies = moviesService.search(query);
+		logger.info("Search "+query+" resulted in "+movies.getList().size()+" hits");
+		return new ResponseEntity<Movies>(movies, HttpStatus.OK);
 	}
 }

@@ -24,6 +24,8 @@ public class MovieFactoryTest {
 		assertNotNull(movieEntity);
 		assertEquals(movieEntity.getOriginalTitle(), movieEntity.getOriginalTitle());
 		assertEquals("Should have 2 cast and crew members", 2, movieEntity.getCastAndCrew().size());
+		
+		assertNull(MovieFactory.convertFromApi(null));
 	}
 	
 	@Test
@@ -33,5 +35,7 @@ public class MovieFactoryTest {
 		assertNotNull(movieApi);
 		assertEquals(movieApi.getOriginalTitle(), movieEntity.getOriginalTitle());
 		assertEquals("Should have 2 cast and crew members", 2, movieApi.getCastAndCrew().size());
+		
+		assertNull(MovieFactory.convertFromEntity(null));
 	}
 }

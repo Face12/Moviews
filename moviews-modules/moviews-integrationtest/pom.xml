@@ -10,7 +10,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<citrus.version>2.1</citrus.version>
-		<slf4j.version>1.7.7</slf4j.version>
 		<testng.version>6.8.8</testng.version>
 		<moviews.version>0.1-SNAPSHOT</moviews.version>
 		<embedded-tomcat.version>8.0.21</embedded-tomcat.version>
@@ -21,6 +20,12 @@
 			<groupId>se.face.moviews</groupId>
 			<artifactId>moviews-web</artifactId>
 			<classifier>classes</classifier>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -97,25 +102,6 @@
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>${testng.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

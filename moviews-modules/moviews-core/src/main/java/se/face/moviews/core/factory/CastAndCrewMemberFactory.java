@@ -13,6 +13,7 @@ import se.face.moviews.core.domain.entity.CastAndCrewMember;
 public class CastAndCrewMemberFactory {
 
 	public static CastAndCrewMember convertFromApi(se.face.moviews.api.model.CastAndCrewMember apiCastAndCrewMember) {
+		if (apiCastAndCrewMember == null) return null;
 		CastAndCrewMember castAndCrewMember = new CastAndCrewMember();
 		castAndCrewMember.setCastAndCrewMemberId(apiCastAndCrewMember.getId());
 		castAndCrewMember.setFirstName(apiCastAndCrewMember.getFirstName());
@@ -23,13 +24,13 @@ public class CastAndCrewMemberFactory {
 
 	public static se.face.moviews.api.model.CastAndCrewMember convertFromEntity(
 			CastAndCrewMember castAndCrewMemberEntity) {
-		se.face.moviews.api.model.CastAndCrewMember castAndCrewMember = 
-				new se.face.moviews.api.model.CastAndCrewMember(
-						castAndCrewMemberEntity.getCastAndCrewMemberId(), 
-						castAndCrewMemberEntity.getFirstName(),
-						castAndCrewMemberEntity.getLastName(), 
-						castAndCrewMemberEntity.getRole());
-		return castAndCrewMember;
+		if (castAndCrewMemberEntity == null) return null;
+				
+		return new se.face.moviews.api.model.CastAndCrewMember(
+				castAndCrewMemberEntity.getCastAndCrewMemberId(), 
+				castAndCrewMemberEntity.getFirstName(),
+				castAndCrewMemberEntity.getLastName(), 
+				castAndCrewMemberEntity.getRole());
 	}
 	
 }

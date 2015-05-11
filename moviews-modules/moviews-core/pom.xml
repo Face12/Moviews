@@ -9,12 +9,12 @@
 	<artifactId>moviews-core</artifactId>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>se.face.moviews</groupId>
 			<artifactId>moviews-api</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -44,6 +44,23 @@
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
 		<!--Test Dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -55,5 +72,7 @@
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+
 	</dependencies>
 </project>
