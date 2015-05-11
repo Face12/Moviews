@@ -1,5 +1,5 @@
 {
-	"originalTitle" : "${savedMovieTitle}",
+	"originalTitle" : "{savedMovieTitle}",
 	"castAndCrew" : [
 		{
 			"firstName" : "Jane",
