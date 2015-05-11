@@ -16,7 +16,7 @@
 			<groupId>se.face.moviews</groupId>
 			<artifactId>moviews-web</artifactId>
 			<classifier>classes</classifier>
-			<version>${project.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>

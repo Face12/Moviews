@@ -24,7 +24,7 @@ import org.springframework.http.HttpStatus;
 import com.jayway.restassured.http.ContentType;
 
 import se.face.moviews.asrqtest.config.Moviews;
-import se.face.moviews.asrqtest.data.JsonFileTemplate;
+import se.face.moviews.asrqtest.data.JsonBuilderFromTemplate;
 /**
  * @author Samuel
  *
@@ -37,7 +37,6 @@ public class MoviesTest {
 	@Deployment(testable = false)
 	public static WebArchive deploy(){
 		WebArchive webArchive = ShrinkWrap.create(WebArchive.class);
-		Moviews.addConfiguration(webArchive);
 		Moviews.addProjectClasses(webArchive);
 		Moviews.addMavenDependencies(webArchive);
 		return webArchive;
@@ -72,8 +71,8 @@ public class MoviesTest {
 
 	@Test
 	public void saveShouldFailTest(){
-		String json = new JsonFileTemplate(MOVIE_SAVE_FAILS)
-			.getJson();
+		String json = JsonBuilderFromTemplate.file(MOVIE_SAVE_FAILS)
+			.buildJson();
 		given()
 			.body(json)
 			.contentType(ContentType.JSON)
@@ -127,9 +126,9 @@ public class MoviesTest {
 	}
 	
 	private String saveMovieJson(String originalTitle) {		
-		String json = new JsonFileTemplate(MOVIE_TO_SAVE)
+		String json = JsonBuilderFromTemplate.file(MOVIE_TO_SAVE)
 			.param("savedMovieTitle", originalTitle)
-			.getJson();
+			.buildJson();
 		return json;
 	}
 	
