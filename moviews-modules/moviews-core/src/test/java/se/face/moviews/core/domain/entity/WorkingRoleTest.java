@@ -7,24 +7,24 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import se.face.moviews.core.domain.entity.CastAndCrewMember;
+import se.face.moviews.core.domain.entity.WorkingRole;
 import se.face.moviews.core.test.TestObjectFactory;
 
 /**
  * @author Samuel
  *
  */
-public class CastAndCrewMemberTest {
+public class WorkingRoleTest {
 	@Test
 	public void shouldCreateCastAndCrewMember(){
-		TestObjectFactory.castAndCrewMemberEntity();
+		TestObjectFactory.workingRoleEntity();
 	}
 	
 	@Test
 	public void objectTest(){
-		CastAndCrewMember c1a = new CastAndCrewMember(1);
-		CastAndCrewMember c1b = new CastAndCrewMember(1);
-		CastAndCrewMember c2 = new CastAndCrewMember(2);
+		WorkingRole c1a = new WorkingRole(1);
+		WorkingRole c1b = new WorkingRole(1);
+		WorkingRole c2 = new WorkingRole(2);
 		assertTrue("Should be equal", c1a.equals(c1b));
 		assertFalse("Should not be equal", c1a.equals(c2));
 		assertTrue("Hashcode", c1a.hashCode() == c1b.hashCode());

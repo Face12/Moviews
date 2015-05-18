@@ -19,7 +19,7 @@ public interface MovieDao {
 	
 	public Movie get(int id);
 
-	public Movie getWithCastAndCrew(int id);
+	public Movie getAndFetchCollections(int id);
 
 	public List<Movie> searchByOriginalTitle(String query);
 }

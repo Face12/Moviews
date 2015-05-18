@@ -13,7 +13,7 @@
 
 	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
-		<param name="Threshold" value="DEBUG" />
+		<param name="Threshold" value="TRACE" />
 
 		<layout class="org.apache.log4j.PatternLayout">
 			<!-- The default pattern: Date Priority [Category] Message\n -->
@@ -35,7 +35,7 @@
 
 	<!-- Our own classes -->
 	<logger name="org.springframework">
-		<level value="INFO" />
+		<level value="TRACE" />
 	</logger>
 
 	<logger name="org.hibernate">

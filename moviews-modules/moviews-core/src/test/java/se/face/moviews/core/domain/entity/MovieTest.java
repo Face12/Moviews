@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import se.face.moviews.core.domain.entity.CastAndCrewMember;
+import se.face.moviews.core.domain.entity.WorkingRole;
 import se.face.moviews.core.domain.entity.Movie;
 import se.face.moviews.core.test.TestObjectFactory;
 
@@ -19,7 +19,7 @@ public class MovieTest {
 	@Test
 	public void shouldListCastAndCrew(){
 		Movie movie = TestObjectFactory.movieEntity();
-		Set<CastAndCrewMember> list = movie.getCastAndCrew();
+		Set<WorkingRole> list = movie.getWorkingRoles();
 		assertTrue("No cast and crew members", list.size() > 0);
 	}
 	

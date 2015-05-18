@@ -1,33 +1,30 @@
-/**
- * 
- */
 package se.face.moviews.api.model;
 
-/**
- * @author Samuel
- *
- */
-public class CastAndCrewMember implements Resource{
-	
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+
+@JsonSerialize(include = Inclusion.NON_EMPTY)
+public class Person implements Resource{
 	private Integer id;
 	private String firstName;
 	private String lastName;
-	private String role;
 	
-	public CastAndCrewMember(){}
+	public Person(){}
 	
-	public CastAndCrewMember(String firstName, String lastName, String role) {
-		this(null, firstName, lastName, role);
+	public Person(Integer personId){
+		this(personId, null, null);
 	}
 	
-	public CastAndCrewMember(Integer id, String firstName, String lastName, String role) {
+	public Person(String firstName, String lastName){
+		this(null, firstName, lastName);
+	}
+	
+	public Person(Integer id, String firstName, String lastName){
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.role = role;
 	}
-	
-	@Override
+
 	public Integer getId() {
 		return id;
 	}
@@ -40,14 +37,22 @@ public class CastAndCrewMember implements Resource{
 		return lastName;
 	}
 
-	public String getRole() {
-		return role;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	@Override
 	public String toString() {
-		return "CastAndCrewMember [id=" + id + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", role=" + role + "]";
+		return "Person [id=" + id + ", firstName=" + firstName
+				+ ", lastName=" + lastName + "]";
 	}
 
 	@Override
@@ -56,10 +61,10 @@ public class CastAndCrewMember implements Resource{
 		int result = 1;
 		result = prime * result
 				+ ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
 				+ ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result
+				+ ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -74,19 +79,12 @@ public class CastAndCrewMember implements Resource{
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		CastAndCrewMember other = (CastAndCrewMember) obj;
+		Person other = (Person) obj;
 		if (firstName == null) {
 			if (other.firstName != null) {
 				return false;
 			}
 		} else if (!firstName.equals(other.firstName)) {
-			return false;
-		}
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
 			return false;
 		}
 		if (lastName == null) {
@@ -96,14 +94,14 @@ public class CastAndCrewMember implements Resource{
 		} else if (!lastName.equals(other.lastName)) {
 			return false;
 		}
-		if (role == null) {
-			if (other.role != null) {
+		if (id == null) {
+			if (other.id != null) {
 				return false;
 			}
-		} else if (!role.equals(other.role)) {
+		} else if (!id.equals(other.id)) {
 			return false;
 		}
 		return true;
 	}
-
+	
 }

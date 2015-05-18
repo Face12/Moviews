@@ -20,6 +20,7 @@ import se.face.moviews.api.model.Movie;
 import se.face.moviews.api.model.Movies;
 import se.face.moviews.api.model.PingResponse;
 import se.face.moviews.core.service.MoviesService;
+import se.face.moviews.core.service.OMDBService;
 import se.face.moviews.web.util.ResponseBuilder;
 
 /**
@@ -32,6 +33,8 @@ public class MoviewsController {
 	public static final String PATH = "/movies";
 	@Autowired
 	private MoviesService moviesService;
+	@Autowired
+	private OMDBService omdbService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MoviewsController.class);
 	
@@ -65,6 +68,14 @@ public class MoviewsController {
 		logger.info("Searching for: "+query);
 		Movies movies = moviesService.search(query);
 		logger.info("Search "+query+" resulted in "+movies.getList().size()+" hits");
+		return new ResponseEntity<Movies>(movies, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/external/search", method = RequestMethod.GET)
+	public ResponseEntity<Movies> searchExternally(@RequestParam String query){
+		logger.info("External search for: "+query);
+		Movies movies = omdbService.searchByTitle(query);
+		logger.info(" External search "+query+" resulted in "+movies.getList().size()+" hits");
 		return new ResponseEntity<Movies>(movies, HttpStatus.OK);
 	}
 }

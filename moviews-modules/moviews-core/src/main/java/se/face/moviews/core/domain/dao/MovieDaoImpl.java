@@ -45,11 +45,14 @@ public class MovieDaoImpl implements MovieDao {
 	}
 
 	@Override
-	public Movie getWithCastAndCrew(int id) {
+	public Movie getAndFetchCollections(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Movie.class)
 			.add(Restrictions.idEq(id))
-			.setFetchMode("castAndCrew", FetchMode.JOIN);
+			.setFetchMode("castAndCrew", FetchMode.JOIN)
+			.setFetchMode("genres", FetchMode.JOIN)
+			.setFetchMode("countries", FetchMode.JOIN)
+			.setFetchMode("languages", FetchMode.JOIN);
 		return (Movie) criteria.uniqueResult();
 	}
 

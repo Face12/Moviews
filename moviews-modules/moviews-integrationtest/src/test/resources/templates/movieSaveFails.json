@@ -1,15 +1,19 @@
 {
 	"id" : -1000
 	"originalTitle" : "movieTestMovie",
-	"castAndCrew" : [
+	"workingRoles" : [
 		{
-			"firstName" : "Jane",
-			"lastName" : "Doe",
+			"person" : {
+				"firstName" : "Jane",
+				"lastName" : "Doe"
+			},
 			"role" : "Director"
 		},
 		{
-			"firstName" : "John",
-			"lastName" : "Doe",
+			"person" : {
+				"firstName" : "John",
+				"lastName" : "Doe"
+			},
 			"role" : "Actor"
 		}
 	]

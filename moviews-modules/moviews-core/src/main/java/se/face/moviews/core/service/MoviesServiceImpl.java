@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import se.face.moviews.api.model.Movie;
 import se.face.moviews.api.model.Movies;
 import se.face.moviews.core.domain.dao.MovieDao;
+import se.face.moviews.core.exception.ErrorInRequestException;
 import se.face.moviews.core.factory.MovieFactory;
+import se.face.moviews.core.util.ErrorCode;
 
 /**
  * @author Samuel
@@ -27,6 +29,9 @@ public class MoviesServiceImpl implements MoviesService{
 	@Autowired
 	private MovieDao movieDao;
 	
+	@Autowired
+	private DBInspectorService duplicateInspectorService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(MoviesServiceImpl.class);
 	
 	@Transactional
@@ -34,6 +39,11 @@ public class MoviesServiceImpl implements MoviesService{
 	public Movie saveMovie(Movie movie) {	
 		logger.debug("Saving movie: "+movie);
 		se.face.moviews.core.domain.entity.Movie entity = MovieFactory.convertFromApi(movie);
+		DBStatus dbStatus = duplicateInspectorService.checkMovieStatus(entity);
+		if (dbStatus != DBStatus.NOT_PRESENT){
+			throw new ErrorInRequestException("Movie \""+movie.getOriginalTitle()+"\" allready exist", ErrorCode.ENTITY_ALLREADY_EXISTS);
+		}
+		duplicateInspectorService.pickupExistingCollectionEntries(entity);
 		int id = movieDao.save(entity);
 		logger.debug("Movie saved with id: "+id);
 		return getMovieByIdWithCaCs(id);
@@ -59,7 +69,7 @@ public class MoviesServiceImpl implements MoviesService{
 
 
 	private Movie getMovieByIdWithCaCs(int id) {
-		se.face.moviews.core.domain.entity.Movie movie = movieDao.getWithCastAndCrew(id);
+		se.face.moviews.core.domain.entity.Movie movie = movieDao.getAndFetchCollections(id);
 		Movie response = MovieFactory.convertFromEntity(movie);
 		return response;
 	}

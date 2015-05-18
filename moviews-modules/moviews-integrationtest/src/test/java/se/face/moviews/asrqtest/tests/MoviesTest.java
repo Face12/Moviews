@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -33,6 +34,8 @@ import se.face.moviews.asrqtest.data.JsonBuilderFromTemplate;
 public class MoviesTest {		
 	private static final String MOVIE_TO_SAVE = "templates/movieToSave.json";
 	private static final String MOVIE_SAVE_FAILS = "templates/movieSaveFails.json";
+	
+	private static final String JSON_UTF8 = ContentType.JSON.withCharset(Charset.forName("UTF-8"));
 	
 	@Deployment(testable = false)
 	public static WebArchive deploy(){
@@ -61,7 +64,7 @@ public class MoviesTest {
 	public void moviesShouldBeSavedTest() throws IOException{
 		given()
 			.body(saveMovieJson(movieTitle()))
-			.contentType(ContentType.JSON)
+			.contentType(JSON_UTF8)
 		.when()
 			.post(getRootPath() + "movies")
 		.then()
@@ -75,7 +78,7 @@ public class MoviesTest {
 			.buildJson();
 		given()
 			.body(json)
-			.contentType(ContentType.JSON)
+			.contentType(JSON_UTF8)
 		.when()
 			.post(getRootPath() + "movies")
 		.then()
@@ -118,7 +121,7 @@ public class MoviesTest {
 	
 	private int saveNewMovie(String originalTitle) {
 		String locationHeader = 
-				given().body(saveMovieJson(originalTitle)).contentType(ContentType.JSON)
+				given().body(saveMovieJson(originalTitle)).contentType(JSON_UTF8)
 				.post(getRootPath() + "movies").header("Location");
 		
 		int id = Integer.parseInt(locationHeader.substring(locationHeader.lastIndexOf("/")+1));

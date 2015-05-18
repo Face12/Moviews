@@ -23,7 +23,7 @@ public class MovieFactoryTest {
 		Movie movieEntity = MovieFactory.convertFromApi(movieApi);
 		assertNotNull(movieEntity);
 		assertEquals(movieEntity.getOriginalTitle(), movieEntity.getOriginalTitle());
-		assertEquals("Should have 2 cast and crew members", 2, movieEntity.getCastAndCrew().size());
+		assertEquals("Should have 2 cast and crew members", 2, movieEntity.getWorkingRoles().size());
 		
 		assertNull(MovieFactory.convertFromApi(null));
 	}
@@ -34,7 +34,7 @@ public class MovieFactoryTest {
 		se.face.moviews.api.model.Movie movieApi = MovieFactory.convertFromEntity(movieEntity);
 		assertNotNull(movieApi);
 		assertEquals(movieApi.getOriginalTitle(), movieEntity.getOriginalTitle());
-		assertEquals("Should have 2 cast and crew members", 2, movieApi.getCastAndCrew().size());
+		assertEquals("Should have 2 cast and crew members", 2, movieApi.getWorkingRoles().size());
 		
 		assertNull(MovieFactory.convertFromEntity(null));
 	}

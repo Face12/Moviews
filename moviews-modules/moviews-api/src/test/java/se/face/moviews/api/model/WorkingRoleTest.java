@@ -11,12 +11,12 @@ import org.junit.Test;
  * @author Samuel
  *
  */
-public class CastAndCrewMemberTest {
+public class WorkingRoleTest {
 	@Test
 	public void objectTest(){
-		CastAndCrewMember castAndCrewMemberJanea = new CastAndCrewMember("Jane", "Doe", "Director");
-		CastAndCrewMember castAndCrewMemberJaneb = new CastAndCrewMember("Jane", "Doe", "Director");
-		CastAndCrewMember castAndCrewMemberJohn = new CastAndCrewMember("John", "Doe", "Actor");
+		WorkingRole castAndCrewMemberJanea = new WorkingRole(new Person("Jane", "Doe"), "Director");
+		WorkingRole castAndCrewMemberJaneb = new WorkingRole(new Person("Jane", "Doe"), "Director");
+		WorkingRole castAndCrewMemberJohn = new WorkingRole(new Person("John", "Doe"), "Actor");
 		
 		assertTrue("Should be equal", castAndCrewMemberJanea.equals(castAndCrewMemberJaneb));
 		assertFalse("Should not be equal", castAndCrewMemberJanea.equals(castAndCrewMemberJohn));

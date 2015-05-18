@@ -38,9 +38,9 @@ public class MovieDaoTest {
 	
 	@Transactional
 	@Test
-	public void savedMovieShouldHaveCastAndCrewMembers(){
+	public void savedMovieShouldHaveWorkingRoles(){
 		int id = movieDao.save(TestObjectFactory.movieEntity());
-		Movie movie = movieDao.getWithCastAndCrew(id);
-		assertTrue(movie.getCastAndCrew().size() > 0);
+		Movie movie = movieDao.getAndFetchCollections(id);
+		assertTrue(movie.getWorkingRoles().size() > 0);
 	}
 }
