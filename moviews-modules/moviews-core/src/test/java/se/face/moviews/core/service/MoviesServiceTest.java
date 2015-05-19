@@ -43,7 +43,7 @@ public class MoviesServiceTest {
 	}
 	
 	@Test
-	public void savingMovieWithExistingCastAndCrewMemberShould_NOT_DuplicateCastAndCrewMember(){
+	public void savingMovieWithExistingPersonShould_NOT_DuplicatePerson(){
 		Movie movie = moviesService.getMovieById(100);
 		WorkingRole workingRoleInAnotherMovie = movie.getWorkingRoles().get(0);
 		Movie movieToSave = new Movie("Other test movie");
@@ -54,7 +54,8 @@ public class MoviesServiceTest {
 		
 		Movie savedMovie = moviesService.saveMovie(movieToSave);
 		
-		assertEquals(workingRoleInAnotherMovie.getPerson().getId(), savedMovie.getWorkingRoles().get(0).getPerson().getId());
+		assertEquals(workingRoleInAnotherMovie.getPerson().getId(), 
+					 savedMovie.getWorkingRoles().get(0).getPerson().getId());
 	}
 
 	private void assertMovieWithTwoCaCs(Movie movie) {
