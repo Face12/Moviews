@@ -23,10 +23,10 @@ public class Movies {
 	}
 
 	public static class MovieHit{
-		private Integer id;
+		private String id;
 		private String originalTitle;
 		
-		public MovieHit(Integer id, String originalTitle) {
+		public MovieHit(String id, String originalTitle) {
 			this.id = id;
 			this.originalTitle = originalTitle;
 		}
@@ -34,7 +34,7 @@ public class Movies {
 		public String getOriginalTitle() {
 			return originalTitle;
 		}
-		public Integer getId() {
+		public String getId() {
 			return id;
 		}
 

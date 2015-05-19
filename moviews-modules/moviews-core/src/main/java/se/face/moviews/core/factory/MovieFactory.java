@@ -5,7 +5,6 @@ package se.face.moviews.core.factory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import se.face.moviews.api.model.Movies;
@@ -55,7 +54,7 @@ public final class MovieFactory {
 	
 	public static Movies createSearchResult(List<Movie> resultList){
 		List<MovieHit> list = new ArrayList<MovieHit>();
-		resultList.forEach(m -> list.add(new MovieHit(m.getMovieId(), m.getOriginalTitle())));
+		resultList.forEach(m -> list.add(new MovieHit(String.valueOf(m.getMovieId()), m.getOriginalTitle())));
 		return new Movies(list);
 	}
 	
@@ -83,7 +82,7 @@ public final class MovieFactory {
 		List<MovieHit> list = new ArrayList<MovieHit>();
 		if (searchResponse.getSearch() != null && !searchResponse.getSearch().isEmpty()){
 			for (Search search : searchResponse.getSearch()){
-				list.add(new MovieHit(null, search.getTitle()));
+				list.add(new MovieHit(search.getImdbID(), search.getTitle()));
 			}
 		}
 		return new Movies(list);
