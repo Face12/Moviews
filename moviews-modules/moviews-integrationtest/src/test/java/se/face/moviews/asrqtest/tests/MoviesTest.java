@@ -119,6 +119,50 @@ public class MoviesTest {
 			.statusCode(HttpStatus.NOT_FOUND.value());
 	}
 	
+	@Test
+	public void shouldFindExternalMovie(){
+		final String title = "Terminator";
+		given()
+			.parameter("query", title)
+		.when()
+			.get(getRootPath() + "movies/external/search")
+		.then()
+			.statusCode(HttpStatus.OK.value())
+			.body("list", hasSize(greaterThanOrEqualTo(1)));
+	}
+	
+	@Test
+	public void shouldGetEmptyListForExternalMovieSearchWithNoMatch(){
+		final String title = "TerminatorNOOOOHIIIIT";
+		given()
+			.parameter("query", title)
+		.when()
+			.get(getRootPath() + "movies/external/search")
+		.then()
+			.statusCode(HttpStatus.OK.value())
+			.body("list", hasSize(equalTo(0)));
+	}
+	
+	@Test
+	public void shouldGetExternalMovieByImdbId(){
+		final String imdbId = "tt0103064";
+		final String expectedTitle = "Terminator 2: Judgment Day";
+		when()
+			.get(getRootPath() + "movies/external/"+imdbId)
+		.then()
+			.statusCode(HttpStatus.OK.value())
+			.body("originalTitle", is(expectedTitle));
+	}
+	
+	@Test
+	public void shouldGet404ForExternalMovieByImdbId(){
+		final String imdbId = "tt9999999";
+		when()
+			.get(getRootPath() + "movies/external/"+imdbId)
+		.then()
+			.statusCode(HttpStatus.NOT_FOUND.value());
+	}
+	
 	private int saveNewMovie(String originalTitle) {
 		String locationHeader = 
 				given().body(saveMovieJson(originalTitle)).contentType(JSON_UTF8)

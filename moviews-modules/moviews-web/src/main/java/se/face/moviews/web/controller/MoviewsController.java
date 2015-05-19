@@ -78,4 +78,15 @@ public class MoviewsController {
 		logger.info(" External search "+query+" resulted in "+movies.getList().size()+" hits");
 		return new ResponseEntity<Movies>(movies, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/external/{imdbId}", method = RequestMethod.GET)
+	public ResponseEntity<Movie> getExternal(@PathVariable String imdbId){
+		logger.info("Getting movie with imdbId: "+imdbId);
+		Movie movie = omdbService.getByImdbId(imdbId);
+		if (movie != null){
+			return new ResponseEntity<Movie>(movie, HttpStatus.OK);
+		}
+		logger.info("Movie with imdbId: "+imdbId+" was not found");
+		return new ResponseEntity<Movie>(movie, HttpStatus.NOT_FOUND);
+	}
 }

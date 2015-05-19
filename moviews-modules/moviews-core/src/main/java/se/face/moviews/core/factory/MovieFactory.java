@@ -5,12 +5,17 @@ package se.face.moviews.core.factory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
 import se.face.moviews.api.model.Movies;
 import se.face.moviews.api.model.Movies.MovieHit;
+import se.face.moviews.api.model.Person;
 import se.face.moviews.core.domain.entity.WorkingRole;
 import se.face.moviews.core.domain.entity.Movie;
 import se.face.moviews.core.omdb.MovieResponse;
+import se.face.moviews.core.omdb.Search;
+import se.face.moviews.core.omdb.SearchResponse;
 import se.face.moviews.core.util.NameParser;
 import se.face.moviews.core.util.NameParser.ParseResult;
 
@@ -54,21 +59,34 @@ public final class MovieFactory {
 		return new Movies(list);
 	}
 	
-	public static Movie resultFromExternal(MovieResponse externalResponse){
-		if ("True".equals(externalResponse.getResponse())){
-			Movie movie = new Movie();
-			movie.setOriginalTitle(externalResponse.getTitle());
-			for (String actor: commaSeparatedToList(externalResponse.getActors())){
+	public static se.face.moviews.api.model.Movie resultFromExternal(MovieResponse movieResponse){
+		if ("True".equals(movieResponse.getResponse())){
+			se.face.moviews.api.model.Movie movie = new se.face.moviews.api.model.Movie();
+			movie.setOriginalTitle(movieResponse.getTitle());
+			for (String actor: commaSeparatedToList(movieResponse.getActors())){
 				ParseResult result = NameParser.parseFullName(actor);
-				movie.addWorkingRole(new WorkingRole(result.getFirstName(), result.getLastName(), "Actor"));
+				movie.addWorkingRole(new se.face.moviews.api.model.WorkingRole(
+						new Person(result.getFirstName(), result.getLastName()), "Actor"));
 			}
-			ParseResult directorNames = NameParser.parseFullName(externalResponse.getDirector());
-			movie.addWorkingRole(new WorkingRole(directorNames.getFirstName(), directorNames.getLastName(), "Director"));
-			ParseResult writerNames = NameParser.parseFullName(externalResponse.getWriter());
-			movie.addWorkingRole(new WorkingRole(writerNames.getFirstName(), writerNames.getLastName(), "Writer"));		
+			ParseResult directorNames = NameParser.parseFullName(movieResponse.getDirector());
+			movie.addWorkingRole(new se.face.moviews.api.model.WorkingRole(
+					new Person(directorNames.getFirstName(), directorNames.getLastName()), "Director"));
+			ParseResult writerNames = NameParser.parseFullName(movieResponse.getWriter());
+			movie.addWorkingRole(new se.face.moviews.api.model.WorkingRole(
+					new Person(writerNames.getFirstName(), writerNames.getLastName()), "Writer"));		
 			return movie;
 		}
 		return null;
+	}
+
+	public static Movies resultFromExternal(SearchResponse searchResponse) {
+		List<MovieHit> list = new ArrayList<MovieHit>();
+		if (searchResponse.getSearch() != null && !searchResponse.getSearch().isEmpty()){
+			for (Search search : searchResponse.getSearch()){
+				list.add(new MovieHit(null, search.getTitle()));
+			}
+		}
+		return new Movies(list);
 	}
 
 	private static List<String> commaSeparatedToList(String commaSeparatedListString) {
