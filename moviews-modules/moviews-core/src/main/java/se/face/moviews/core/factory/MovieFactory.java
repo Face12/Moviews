@@ -62,20 +62,23 @@ public final class MovieFactory {
 		if ("True".equals(movieResponse.getResponse())){
 			se.face.moviews.api.model.Movie movie = new se.face.moviews.api.model.Movie();
 			movie.setOriginalTitle(movieResponse.getTitle());
-			for (String actor: commaSeparatedToList(movieResponse.getActors())){
-				ParseResult result = NameParser.parseFullName(actor);
-				movie.addWorkingRole(new se.face.moviews.api.model.WorkingRole(
-						new Person(result.getFirstName(), result.getLastName()), "Actor"));
-			}
-			ParseResult directorNames = NameParser.parseFullName(movieResponse.getDirector());
-			movie.addWorkingRole(new se.face.moviews.api.model.WorkingRole(
-					new Person(directorNames.getFirstName(), directorNames.getLastName()), "Director"));
-			ParseResult writerNames = NameParser.parseFullName(movieResponse.getWriter());
-			movie.addWorkingRole(new se.face.moviews.api.model.WorkingRole(
-					new Person(writerNames.getFirstName(), writerNames.getLastName()), "Writer"));		
+			addWorkingRoleFromCommaSeparated(movie, movieResponse.getDirector(), "Director");
+			addWorkingRoleFromCommaSeparated(movie, movieResponse.getWriter(), "Writer");
+			addWorkingRoleFromCommaSeparated(movie, movieResponse.getActors(), "Actor");
 			return movie;
 		}
 		return null;
+	}
+
+	private static void addWorkingRoleFromCommaSeparated(se.face.moviews.api.model.Movie movie,
+			String commaSeparated,
+			String role) {
+		List<String> names = commaSeparatedToList(commaSeparated);
+		for (String actor: names){
+			ParseResult result = NameParser.parseFullName(actor);
+			movie.addWorkingRole(new se.face.moviews.api.model.WorkingRole(
+					new Person(result.getFirstName(), result.getLastName()), role));
+		}
 	}
 
 	public static Movies resultFromExternal(SearchResponse searchResponse) {
@@ -89,8 +92,11 @@ public final class MovieFactory {
 	}
 
 	private static List<String> commaSeparatedToList(String commaSeparatedListString) {
-		List<String> ret = Arrays.asList(commaSeparatedListString.split(","));
-		ret.forEach(string -> string = string.trim());
-		return ret;
+		List<String> list = new ArrayList<String>();
+		String[] array = commaSeparatedListString.split(",");
+		for (String s:array){
+			list.add(s.trim());
+		}
+		return list;
 	}
 }
