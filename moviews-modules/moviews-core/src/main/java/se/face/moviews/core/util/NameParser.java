@@ -24,7 +24,7 @@ public final class NameParser {
 		}
 		else{
 			return new ParseResult(nameWords[0], 
-					fullName.substring(fullName.indexOf(nameWords[1])).trim());
+					cleanedFullName.substring(cleanedFullName.indexOf(nameWords[1])).trim());
 		}
 	}
 	
