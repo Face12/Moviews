@@ -8,17 +8,17 @@ import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+import se.face.moviews.api.util.JsonDateSerializer;
 
 /**
  * @author Samuel
  *
  */
-@JsonSerialize(include = Inclusion.NON_EMPTY)
 public class Movie implements Resource {	
 	private Integer id;
 	private String imdbId;
 	private String originalTitle;
+	@JsonSerialize(using = JsonDateSerializer.class)
 	private Date releaseDate;
 	private DateQuality dateQuality;
 	private Short runtimeMinutes;

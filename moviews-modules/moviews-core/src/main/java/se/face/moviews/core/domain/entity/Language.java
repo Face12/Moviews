@@ -22,11 +22,35 @@ public class Language {
 	@Column
 	private Integer languageId;
 	
-	@Column(nullable = false, length = 5, columnDefinition="CHAR(5)", unique = true, updatable = false)
+	@Column(nullable = false, length = 2, columnDefinition="CHAR(2)", unique = true, updatable = false)
 	private String languageCode;
 	
 	@Column(nullable = false)
 	private String languageText;
+
+	public Integer getLanguageId() {
+		return languageId;
+	}
+
+	public void setLanguageId(Integer languageId) {
+		this.languageId = languageId;
+	}
+
+	public String getLanguageCode() {
+		return languageCode;
+	}
+
+	public void setLanguageCode(String languageCode) {
+		this.languageCode = languageCode;
+	}
+
+	public String getLanguageText() {
+		return languageText;
+	}
+
+	public void setLanguageText(String languageText) {
+		this.languageText = languageText;
+	}
 
 	@Override
 	public String toString() {

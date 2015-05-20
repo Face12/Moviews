@@ -3,14 +3,10 @@
  */
 package se.face.moviews.api.model;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
-
 /**
  * @author Samuel
  *
  */
-@JsonSerialize(include = Inclusion.NON_EMPTY)
 public class WorkingRole implements Resource{
 	private Integer id;
 	private Person person;

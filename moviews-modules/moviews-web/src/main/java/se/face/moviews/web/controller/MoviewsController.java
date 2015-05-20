@@ -52,6 +52,12 @@ public class MoviewsController {
 					.buildCreatedResponse(uriBuilder, PATH);
 	}
 	
+	@RequestMapping(value = "save/external/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Movie> saveMovieByExternalId(@PathVariable String id, UriComponentsBuilder uriBuilder){
+		Movie movie = omdbService.getByImdbId(id);		
+		return saveMovie(movie, uriBuilder);
+	}
+	
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Movie> getMovie(@PathVariable int id){
 		logger.info("Retrieving movie with id: "+id);		

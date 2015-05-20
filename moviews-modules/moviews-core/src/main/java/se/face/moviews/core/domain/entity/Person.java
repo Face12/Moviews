@@ -6,7 +6,6 @@ package se.face.moviews.core.domain.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,14 +15,22 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 /**
  * @author Samuel
  *
  */
 @Table(name = "person")
 @Entity
+@NamedQueries({
+	@NamedQuery(name=Person.FIND_BY_NAME, 
+			    query="FROM Person p WHERE lower(p.firstName) = lower(:firstName) and lower(p.lastName) = lower(:lastName)")
+})
 public class Person {
-
+	public static final String FIND_BY_NAME = "personFindByName";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column

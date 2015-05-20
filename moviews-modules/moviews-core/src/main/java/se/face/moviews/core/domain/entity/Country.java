@@ -3,12 +3,19 @@
  */
 package se.face.moviews.core.domain.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 /**
  * @author Samuel
@@ -16,7 +23,15 @@ import javax.persistence.Table;
  */
 @Table(name = "country")
 @Entity
+@NamedQueries({
+	@NamedQuery(name=Country.FIND_BY_TEXT_OR_SYNONYM, 
+			    query="SELECT c FROM Country c LEFT JOIN c.synonyms cs " +
+			    	  "WHERE lower(c.countryText) = lower(:countryText) or " +
+			    	  "lower(cs.synonymText) = lower(:countryText)")
+})
 public class Country {
+	public static final String FIND_BY_TEXT_OR_SYNONYM = "countryFindByTextOrSynonym";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
@@ -27,6 +42,37 @@ public class Country {
 
 	@Column(nullable = false)
 	private String countryText;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
+	private Set<CountrySynonym> synonyms;
+
+	public Integer getCountryId() {
+		return countryId;
+	}
+
+	public void setCountryId(Integer countryId) {
+		this.countryId = countryId;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	public String getCountryText() {
+		return countryText;
+	}
+
+	public void setCountryText(String countryText) {
+		this.countryText = countryText;
+	}
+
+	public Set<CountrySynonym> getSynonyms() {
+		return synonyms;
+	}
 
 	@Override
 	public String toString() {
