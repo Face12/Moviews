@@ -4,10 +4,12 @@
 package se.face.moviews.core.factory;
 
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -136,7 +138,8 @@ public final class MovieFactory {
 			movie.setImdbRating(Float.parseFloat(movieResponse.getImdbRating()));
 			movie.setImdbVotes(Long.parseLong(movieResponse.getImdbVotes()));
 			try {
-				DateFormat df = new SimpleDateFormat("dd MMM yyyy");
+				DateFormat df = new SimpleDateFormat("dd MMM yyyy", 
+						DateFormatSymbols.getInstance(new Locale("en-US")));
 				movie.setReleaseDate(df.parse(movieResponse.getReleased()));
 				movie.setDateQuality(DateQuality.DAY);
 			} catch (ParseException e) {

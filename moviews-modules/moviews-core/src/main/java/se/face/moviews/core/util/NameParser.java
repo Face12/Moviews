@@ -10,8 +10,9 @@ package se.face.moviews.core.util;
 public final class NameParser {
 	private NameParser(){}
 	
-	public static ParseResult parseFullName(String fullName){
-		String[] nameWords = fullName.split("\\s++");
+	public static ParseResult parseFullName(final String fullName){
+		String cleanedFullName = cleanName(fullName);
+		String[] nameWords = cleanedFullName.split("\\s++");
 		for (String nameWord: nameWords){
 			nameWord = nameWord.trim();
 		}
@@ -27,6 +28,12 @@ public final class NameParser {
 		}
 	}
 	
+	private static String cleanName(String name) {
+		return name
+				.replaceAll("\\([^\\)]*+\\)", "")
+				.trim();
+	}
+
 	public static class ParseResult{
 		private final String firstName;
 		private final String lastName;
