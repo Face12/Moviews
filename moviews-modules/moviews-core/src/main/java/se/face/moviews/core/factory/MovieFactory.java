@@ -179,10 +179,14 @@ public final class MovieFactory {
 			String commaSeparated,
 			String role) {
 		List<String> names = commaSeparatedToList(commaSeparated);
-		for (String actor: names){
-			ParseResult result = NameParser.parseFullName(actor);
-			movie.addWorkingRole(new se.face.moviews.api.model.WorkingRole(
+		List<ParseResult> added = new ArrayList<ParseResult>();
+		for (String name: names){
+			ParseResult result = NameParser.parseFullName(name);
+			if (!added.contains(result)){
+				movie.addWorkingRole(new se.face.moviews.api.model.WorkingRole(
 					new Person(result.getFirstName(), result.getLastName()), role));
+				added.add(result);
+			}
 		}
 	}
 
