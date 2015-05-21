@@ -15,5 +15,9 @@ public interface MoviesService {
 	
 	public Movie getMovieById(int id);
 	
-	public Movies search(String query);
+	public Movie getByImdbId(String imdb);
+	
+	public Movies searchInternal(String query);
+	
+	public Movies searchExternal(String query);
 }

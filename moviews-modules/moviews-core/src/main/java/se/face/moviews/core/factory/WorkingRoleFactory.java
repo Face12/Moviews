@@ -5,6 +5,8 @@ package se.face.moviews.core.factory;
 
 import se.face.moviews.api.model.Person;
 import se.face.moviews.core.domain.entity.WorkingRole;
+import se.face.moviews.core.util.NameParser;
+import se.face.moviews.core.util.NameParser.ParseResult;
 
 
 /**
@@ -34,6 +36,13 @@ public class WorkingRoleFactory {
 				workingRoleEntity.getWorkingRoleId(), 
 				person, 
 				workingRoleEntity.getRole().getRoleText());
+	}
+	
+	public static se.face.moviews.api.model.WorkingRole createApiByFullName(String fullName, String role){
+		ParseResult result = NameParser.parseFullName(fullName);
+		
+		return new se.face.moviews.api.model.WorkingRole(
+				new Person(result.getFirstName(), result.getLastName()), role);
 	}
 	
 }

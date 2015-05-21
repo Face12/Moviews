@@ -57,10 +57,16 @@ public class DBInspectorServiceImpl implements DBInspectorService{
 	@Transactional(readOnly  = true)
 	@Override
 	public void pickupExistingCollectionEntries(Movie movie) {
-		if (movie.getWorkingRoles() != null){
+		if (movie.getCountries() != null){
 			checkCountries(movie.getCountries());
+		}
+		if (movie.getLanguages() != null){
 			checkLanguages(movie.getLanguages());
+		}
+		if (movie.getGenres() != null){
 			checkGenres(movie.getGenres());
+		}
+		if (movie.getWorkingRoles() != null){
 			checkWorkingRoles(movie.getWorkingRoles());
 		}
 	}
@@ -74,9 +80,6 @@ public class DBInspectorServiceImpl implements DBInspectorService{
 				Country existingCountry = getAllreadyExisting(query);
 				if (existingCountry != null){
 					newCollection.add(existingCountry);
-				}
-				else{
-					newCollection.add(country);
 				}
 			}
 			countries.clear();
@@ -92,7 +95,7 @@ public class DBInspectorServiceImpl implements DBInspectorService{
 				languageParameters.put("languageText", language.getLanguageText());
 				parameters.put(language, languageParameters);
 			}
-			checkCollection(languages, parameters, Language.class);
+			checkCollection(languages, parameters, Language.class, false);
 		}
 	}
 
@@ -104,7 +107,7 @@ public class DBInspectorServiceImpl implements DBInspectorService{
 				genreParameters.put("genreText", genre.getGenreText());
 				parameters.put(genre, genreParameters);
 			}
-			checkCollection(genres, parameters, Genre.class);
+			checkCollection(genres, parameters, Genre.class, true);
 		}
 	}
 
@@ -158,7 +161,7 @@ public class DBInspectorServiceImpl implements DBInspectorService{
 	}
 	
 
-	private <T> void checkCollection(Set<T> collection, Map<T, Map<String, Object>> parameters, Class<T> clazz){
+	private <T> void checkCollection(Set<T> collection, Map<T, Map<String, Object>> parameters, Class<T> clazz, boolean addNew){
 		Set<T> newCollection = new HashSet<T>();
 		for (T object: collection){
 			Map<String, Object> existingCriteriaParams = parameters.get(object); 
@@ -168,7 +171,7 @@ public class DBInspectorServiceImpl implements DBInspectorService{
 			if (existing != null){
 				newCollection.add(existing);
 			}
-			else{
+			else if (addNew){
 				newCollection.add(object);
 			}
 		}

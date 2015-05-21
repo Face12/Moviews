@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 import se.face.moviews.api.model.DateQuality;
 import se.face.moviews.api.model.Movies;
 import se.face.moviews.api.model.Movies.MovieHit;
-import se.face.moviews.api.model.Person;
 import se.face.moviews.core.domain.entity.Country;
 import se.face.moviews.core.domain.entity.Genre;
 import se.face.moviews.core.domain.entity.Language;
@@ -28,8 +27,6 @@ import se.face.moviews.core.domain.entity.Movie;
 import se.face.moviews.core.omdb.MovieResponse;
 import se.face.moviews.core.omdb.Search;
 import se.face.moviews.core.omdb.SearchResponse;
-import se.face.moviews.core.util.NameParser;
-import se.face.moviews.core.util.NameParser.ParseResult;
 
 /**
  * @author Samuel
@@ -95,6 +92,7 @@ public final class MovieFactory {
 		apiMovie.setImdbRating(movieEntity.getImdbRating());
 		apiMovie.setImdbVotes(movieEntity.getImdbVotes());
 		apiMovie.setReleaseDate(movieEntity.getReleaseDate());
+		apiMovie.setLastUpdated(movieEntity.getLastUpdated());
 		if (movieEntity.getDateQuality() != null){
 			apiMovie.setDateQuality(DateQuality.valueOf(movieEntity.getDateQuality().name()));
 		}
@@ -167,27 +165,9 @@ public final class MovieFactory {
 					movie.addLanguage(language);
 				}
 			}
-			addWorkingRoleFromCommaSeparated(movie, movieResponse.getDirector(), "Director");
-			addWorkingRoleFromCommaSeparated(movie, movieResponse.getWriter(), "Writer");
-			addWorkingRoleFromCommaSeparated(movie, movieResponse.getActors(), "Actor");
 			return movie;
 		}
 		return null;
-	}
-
-	private static void addWorkingRoleFromCommaSeparated(se.face.moviews.api.model.Movie movie,
-			String commaSeparated,
-			String role) {
-		List<String> names = commaSeparatedToList(commaSeparated);
-		List<ParseResult> added = new ArrayList<ParseResult>();
-		for (String name: names){
-			ParseResult result = NameParser.parseFullName(name);
-			if (!added.contains(result)){
-				movie.addWorkingRole(new se.face.moviews.api.model.WorkingRole(
-					new Person(result.getFirstName(), result.getLastName()), role));
-				added.add(result);
-			}
-		}
 	}
 
 	public static Movies resultFromExternal(SearchResponse searchResponse) {

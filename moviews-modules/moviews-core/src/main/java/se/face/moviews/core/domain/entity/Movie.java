@@ -59,6 +59,9 @@ public class Movie {
 	@Column
 	private Long imdbVotes;
 	
+	@Column(nullable = false)
+	private Date lastUpdated;
+	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "movie_language",
@@ -95,9 +98,12 @@ public class Movie {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "inMovie")
 	private Set<WorkingRole> workingRoles;
 	
-	public Movie() {}
+	public Movie() {
+		lastUpdated = new Date();
+	}
 	
 	public Movie(String originalTitle) {
+		this();
 		this.originalTitle = originalTitle;
 	}
 	
@@ -185,6 +191,14 @@ public class Movie {
 		this.imdbVotes = imdbVotes;
 	}
 
+	public Date getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(Date lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+
 	public Set<Language> getLanguages() {
 		return languages;
 	}
@@ -245,7 +259,7 @@ public class Movie {
 				+ releaseDate + ", dateQuality=" + dateQuality
 				+ ", runtimeMinutes=" + runtimeMinutes + ", plot=" + plot
 				+ ", imdbRating=" + imdbRating + ", imdbVotes=" + imdbVotes
-				+ "]";
+				+ ", lastUpdated=" + lastUpdated + "]";
 	}
 
 	@Override
@@ -259,6 +273,8 @@ public class Movie {
 				+ ((imdbRating == null) ? 0 : imdbRating.hashCode());
 		result = prime * result
 				+ ((imdbVotes == null) ? 0 : imdbVotes.hashCode());
+		result = prime * result
+				+ ((lastUpdated == null) ? 0 : lastUpdated.hashCode());
 		result = prime * result + ((movieId == null) ? 0 : movieId.hashCode());
 		result = prime * result
 				+ ((originalTitle == null) ? 0 : originalTitle.hashCode());
@@ -306,6 +322,13 @@ public class Movie {
 		} else if (!imdbVotes.equals(other.imdbVotes)) {
 			return false;
 		}
+		if (lastUpdated == null) {
+			if (other.lastUpdated != null) {
+				return false;
+			}
+		} else if (!lastUpdated.equals(other.lastUpdated)) {
+			return false;
+		}
 		if (movieId == null) {
 			if (other.movieId != null) {
 				return false;
@@ -343,5 +366,4 @@ public class Movie {
 		}
 		return true;
 	}
-	
 }

@@ -24,7 +24,7 @@ import se.face.moviews.core.test.TestConfiguration;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfiguration.class)
-public class CastAndCrewMemberDaoTest {
+public class WorkingRoleDaoTest {
 
 	@Autowired
 	WorkingRoleDao workingRoleDao;
@@ -32,9 +32,9 @@ public class CastAndCrewMemberDaoTest {
 	@Transactional
 	@Test
 	public void shouldMatchExactName(){
-		List<WorkingRole> johnDoes = workingRoleDao.searchByName("John Doe");
+		List<WorkingRole> johnDoes = workingRoleDao.searchByName("Jane Doe");
 		
 		assertEquals(1, johnDoes.size());
-		assertEquals(101, johnDoes.get(0).getWorkingRoleId().intValue());
+		assertEquals(102, johnDoes.get(0).getWorkingRoleId().intValue());
 	}
 }

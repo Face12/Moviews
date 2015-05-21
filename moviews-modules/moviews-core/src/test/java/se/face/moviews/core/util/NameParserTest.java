@@ -15,9 +15,16 @@ import se.face.moviews.core.util.NameParser.ParseResult;
  */
 public class NameParserTest {
 	@Test
-	public void shouldParse(){
+	public void shouldRemoveDescription(){
 		ParseResult result = NameParser.parseFullName("Alejandro González Iñárritu (idea)");
 		assertEquals("Alejandro", result.getFirstName());
 		assertEquals("González Iñárritu", result.getLastName());
+	}
+	
+	@Test
+	public void shouldRemoveNick(){
+		ParseResult result = NameParser.parseFullName("Tommy 'Tiny' Lister");
+		assertEquals("Tommy", result.getFirstName());
+		assertEquals("Lister", result.getLastName());
 	}
 }

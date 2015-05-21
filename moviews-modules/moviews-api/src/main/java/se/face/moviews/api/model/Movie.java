@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 import se.face.moviews.api.util.JsonDateSerializer;
 
 /**
@@ -25,6 +26,7 @@ public class Movie implements Resource {
 	private String plot;
 	private Float imdbRating;
 	private Long imdbVotes;
+	private Date lastUpdated;
 	private List<String> languages = new ArrayList<String>();
 	private List<String> countries = new ArrayList<String>();
 	private List<String> genres = new ArrayList<String>();
@@ -142,13 +144,22 @@ public class Movie implements Resource {
 		return workingRoles;
 	}
 
+	public Date getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(Date lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+
 	@Override
 	public String toString() {
 		return "Movie [id=" + id + ", imdbId=" + imdbId + ", originalTitle="
 				+ originalTitle + ", releaseDate=" + releaseDate
 				+ ", dateQuality=" + dateQuality + ", runtimeMinutes="
 				+ runtimeMinutes + ", plot=" + plot + ", imdbRating="
-				+ imdbRating + ", imdbVotes=" + imdbVotes + "]";
+				+ imdbRating + ", imdbVotes=" + imdbVotes + ", lastUpdated="
+				+ lastUpdated + "]";
 	}
 
 	@Override
@@ -156,12 +167,7 @@ public class Movie implements Resource {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((workingRoles == null) ? 0 : workingRoles.hashCode());
-		result = prime * result
-				+ ((countries == null) ? 0 : countries.hashCode());
-		result = prime * result
 				+ ((dateQuality == null) ? 0 : dateQuality.hashCode());
-		result = prime * result + ((genres == null) ? 0 : genres.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((imdbId == null) ? 0 : imdbId.hashCode());
 		result = prime * result
@@ -169,7 +175,7 @@ public class Movie implements Resource {
 		result = prime * result
 				+ ((imdbVotes == null) ? 0 : imdbVotes.hashCode());
 		result = prime * result
-				+ ((languages == null) ? 0 : languages.hashCode());
+				+ ((lastUpdated == null) ? 0 : lastUpdated.hashCode());
 		result = prime * result
 				+ ((originalTitle == null) ? 0 : originalTitle.hashCode());
 		result = prime * result + ((plot == null) ? 0 : plot.hashCode());
@@ -192,28 +198,7 @@ public class Movie implements Resource {
 			return false;
 		}
 		Movie other = (Movie) obj;
-		if (workingRoles == null) {
-			if (other.workingRoles != null) {
-				return false;
-			}
-		} else if (!workingRoles.equals(other.workingRoles)) {
-			return false;
-		}
-		if (countries == null) {
-			if (other.countries != null) {
-				return false;
-			}
-		} else if (!countries.equals(other.countries)) {
-			return false;
-		}
 		if (dateQuality != other.dateQuality) {
-			return false;
-		}
-		if (genres == null) {
-			if (other.genres != null) {
-				return false;
-			}
-		} else if (!genres.equals(other.genres)) {
 			return false;
 		}
 		if (id == null) {
@@ -244,11 +229,11 @@ public class Movie implements Resource {
 		} else if (!imdbVotes.equals(other.imdbVotes)) {
 			return false;
 		}
-		if (languages == null) {
-			if (other.languages != null) {
+		if (lastUpdated == null) {
+			if (other.lastUpdated != null) {
 				return false;
 			}
-		} else if (!languages.equals(other.languages)) {
+		} else if (!lastUpdated.equals(other.lastUpdated)) {
 			return false;
 		}
 		if (originalTitle == null) {

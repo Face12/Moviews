@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import se.face.moviews.api.model.Movie;
 import se.face.moviews.api.model.Movies;
+import se.face.moviews.api.model.WorkingRole;
 import se.face.moviews.core.domain.dao.MovieDao;
 import se.face.moviews.core.exception.ErrorInRequestException;
 import se.face.moviews.core.factory.MovieFactory;
@@ -28,6 +29,12 @@ public class MoviesServiceImpl implements MoviesService{
 
 	@Autowired
 	private MovieDao movieDao;
+	
+	@Autowired
+	private OMDBService omdbService;
+	
+	@Autowired
+	private IMDBService imdbService;
 	
 	@Autowired
 	private DBInspectorService duplicateInspectorService;
@@ -60,14 +67,28 @@ public class MoviesServiceImpl implements MoviesService{
 
 	@Transactional(readOnly = true)
 	@Override
-	public Movies search(String query) {
+	public Movies searchInternal(String query) {
 		logger.debug("Searching for movies by query: "+query);
 		List<se.face.moviews.core.domain.entity.Movie> list = movieDao.searchByOriginalTitle(query);
 		logger.debug("Query "+query+" returns: "+list);
 		return MovieFactory.createSearchResult(list);
 	}
 
+	@Override
+	public Movie getByImdbId(String imdbId) {
+		Movie movie = omdbService.getByImdbId(imdbId);
+		List<WorkingRole> workingRoles = imdbService.getAllWorkingRolesForMovie(imdbId);
+		for (WorkingRole workingRole: workingRoles){
+			movie.addWorkingRole(workingRole);
+		}
+		return movie;
+	}
 
+	@Override
+	public Movies searchExternal(String query) {
+		return omdbService.searchByTitle(query);
+	}
+	
 	private Movie getMovieByIdWithCaCs(int id) {
 		se.face.moviews.core.domain.entity.Movie movie = movieDao.getAndFetchCollections(id);
 		Movie response = MovieFactory.convertFromEntity(movie);

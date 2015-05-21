@@ -21,6 +21,7 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import se.face.moviews.core.client.ClientPackage;
 import se.face.moviews.core.domain.dao.DaoPackage;
 import se.face.moviews.core.domain.entity.EntityPackage;
 
@@ -31,7 +32,7 @@ import se.face.moviews.core.domain.entity.EntityPackage;
 @EnableTransactionManagement
 @Configuration
 @PropertySource("classpath:moviews-configuration.properties")
-@ComponentScan(basePackageClasses = {DaoPackage.class, AppConfig.class})
+@ComponentScan(basePackageClasses = {DaoPackage.class, AppConfig.class, ClientPackage.class})
 public class AppConfig {	
 
 	private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);

@@ -8,6 +8,10 @@ package se.face.moviews.core.util;
  *
  */
 public final class NameParser {
+	private static final String NAME_DESCRIPTION_PATTERN = "\\([^\\)]*+\\)";
+	private static final String NICK_NAME_PATTERN = " \\'[^\\' ]*+\\'";
+	private static final String SEVERAL_WHITESPACE_PATTERN = "\\s{2,}+";
+	
 	private NameParser(){}
 	
 	public static ParseResult parseFullName(final String fullName){
@@ -30,7 +34,12 @@ public final class NameParser {
 	
 	private static String cleanName(String name) {
 		return name
-				.replaceAll("\\([^\\)]*+\\)", "")
+				.replaceAll(NAME_DESCRIPTION_PATTERN, "") 
+												  //Sometimes description in parenthesis at the end after like 
+												  //"Elizabeth Avellan (asElizabeth Avellan)"
+				
+				.replaceAll(NICK_NAME_PATTERN, "")				//Removing nicknames like "Tommy 'Tiny' Lister"
+				.replaceAll(SEVERAL_WHITESPACE_PATTERN, " ")	//Reducing contiguous whitespaces to only one blank.
 				.trim();
 	}
 

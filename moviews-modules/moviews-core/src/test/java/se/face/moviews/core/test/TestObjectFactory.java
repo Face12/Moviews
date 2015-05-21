@@ -25,6 +25,7 @@ public class TestObjectFactory {
 		movie.setReleaseDate(new Date());
 		movie.setDateQuality(DateQuality.DAY);
 		movie.setRuntimeMinutes((short) 1000);
+		movie.setLastUpdated(new Date());
 		movie.addWorkingRole(new WorkingRole("Bryan E", "Singer E", "Director E"));
 		movie.addWorkingRole(new WorkingRole("Kevin E", "Spacey E", "Actor E"));
 		return movie;

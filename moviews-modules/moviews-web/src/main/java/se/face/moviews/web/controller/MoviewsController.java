@@ -33,8 +33,6 @@ public class MoviewsController {
 	public static final String PATH = "/movies";
 	@Autowired
 	private MoviesService moviesService;
-	@Autowired
-	private OMDBService omdbService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MoviewsController.class);
 	
@@ -54,7 +52,7 @@ public class MoviewsController {
 	
 	@RequestMapping(value = "save/external/{id}", method = RequestMethod.POST)
 	public ResponseEntity<Movie> saveMovieByExternalId(@PathVariable String id, UriComponentsBuilder uriBuilder){
-		Movie movie = omdbService.getByImdbId(id);		
+		Movie movie = moviesService.getByImdbId(id);		
 		return saveMovie(movie, uriBuilder);
 	}
 	
@@ -72,7 +70,7 @@ public class MoviewsController {
 	@RequestMapping(value="/search", method = RequestMethod.GET)
 	public ResponseEntity<Movies> search(@RequestParam String query){
 		logger.info("Searching for: "+query);
-		Movies movies = moviesService.search(query);
+		Movies movies = moviesService.searchInternal(query);
 		logger.info("Search "+query+" resulted in "+movies.getList().size()+" hits");
 		return new ResponseEntity<Movies>(movies, HttpStatus.OK);
 	}
@@ -80,7 +78,7 @@ public class MoviewsController {
 	@RequestMapping(value="/external/search", method = RequestMethod.GET)
 	public ResponseEntity<Movies> searchExternally(@RequestParam String query){
 		logger.info("External search for: "+query);
-		Movies movies = omdbService.searchByTitle(query);
+		Movies movies = moviesService.searchExternal(query);
 		logger.info(" External search "+query+" resulted in "+movies.getList().size()+" hits");
 		return new ResponseEntity<Movies>(movies, HttpStatus.OK);
 	}
@@ -88,7 +86,7 @@ public class MoviewsController {
 	@RequestMapping(value="/external/{imdbId}", method = RequestMethod.GET)
 	public ResponseEntity<Movie> getExternal(@PathVariable String imdbId){
 		logger.info("Getting movie with imdbId: "+imdbId);
-		Movie movie = omdbService.getByImdbId(imdbId);
+		Movie movie = moviesService.getByImdbId(imdbId);
 		if (movie != null){
 			return new ResponseEntity<Movie>(movie, HttpStatus.OK);
 		}

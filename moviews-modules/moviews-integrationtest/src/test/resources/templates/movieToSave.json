@@ -7,8 +7,8 @@
 	"plot" : "An integration test movie plot.",
 	"imdbRating" : 5.0,
 	"imdbVotes" : 4000,
-	"languages" : ["Hungarian", "English"],
-	"countries" : ["USA", "France"],
+	"languages" : ["Hungarian", "English", "Unknowncountryignore"],
+	"countries" : ["USA", "France", "Unknownlanguageignore"],
 	"genres" : ["Testgenre", "Action"],
 	"workingRoles" : [
 		{
