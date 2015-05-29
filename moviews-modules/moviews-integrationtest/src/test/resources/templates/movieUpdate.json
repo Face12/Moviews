@@ -1,0 +1,30 @@
+{	
+	"id" : "{updateMovieId}",
+	"originalTitle" : "{updateMovieTitle}",
+	"imdbId" : "ttIntegrationTest",
+	"releaseDate" : "2015-01-01",
+	"dateQuality" : "DAY",
+	"runtimeMinutes" : 200,
+	"plot" : "An integration test movie plot. (Updated)",
+	"imdbRating" : 5.0,
+	"imdbVotes" : 4000,
+	"languages" : ["Hungarian", "English", "Unknowncountryignore"],
+	"countries" : ["USA", "France", "Unknownlanguageignore"],
+	"genres" : ["Testgenre", "Action"],
+	"workingRoles" : [
+		{
+			"person" : {
+				"firstName" : "Jane",
+				"lastName" : "Doe"
+			},
+			"role" : "Director"
+		},
+		{
+			"person" : {
+				"firstName" : "John",
+				"lastName" : "Doe"
+			},
+			"role" : "Actor"
+		}
+	]
+}

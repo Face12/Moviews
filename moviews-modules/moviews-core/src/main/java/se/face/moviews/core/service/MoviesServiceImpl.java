@@ -56,6 +56,16 @@ public class MoviesServiceImpl implements MoviesService{
 		return getMovieByIdWithCaCs(id);
 	}
 
+	@Transactional
+	@Override
+	public void updateMovie(Movie movie) {
+		logger.debug("Updating movie: "+movie);		
+		se.face.moviews.core.domain.entity.Movie entity = MovieFactory.convertFromApi(movie);
+		duplicateInspectorService.pickupExistingCollectionEntries(entity);
+		movieDao.update(entity);
+		logger.debug("Movie with id: "+movie.getId()+" is updated");
+	}
+
 	@Transactional(readOnly = true)
 	@Override
 	public Movie getMovieById(int id) {

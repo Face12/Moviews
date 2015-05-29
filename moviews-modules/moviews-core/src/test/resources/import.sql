@@ -2,7 +2,8 @@ INSERT INTO country(countryId, countryCode, countryText) values(10, 'US', 'Unite
 INSERT INTO country_synonym(countrySynonymId, countryId, synonymText) values(11, 10, 'USA');
 INSERT INTO country(countryId, countryCode, countryText) values(12, 'AE', 'United Arab Emirates');
 INSERT INTO language(languageId, languageCode, languageText) values(13, 'en', 'English');
-INSERT INTO genre(genreId, genreText) values(14, 'Thriller');
+INSERT INTO language(languageId, languageCode, languageText) values(14, 'bg', 'Bulgarian');
+INSERT INTO genre(genreId, genreText) values(15, 'Thriller');
 
 INSERT INTO movie (movieId, originalTitle, imdbRating, lastUpdated) values(100, 'testMovieJUnit', 8.3, '2015-05-21');
 INSERT INTO person(personId, firstName, lastName) values(105, 'John', 'Doe');

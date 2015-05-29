@@ -13,6 +13,8 @@ import se.face.moviews.api.model.Movies;
 public interface MoviesService {
 	public Movie saveMovie(Movie movie);
 	
+	public void updateMovie(Movie movie);
+	
 	public Movie getMovieById(int id);
 	
 	public Movie getByImdbId(String imdb);

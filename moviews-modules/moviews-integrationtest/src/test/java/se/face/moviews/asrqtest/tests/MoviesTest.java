@@ -33,6 +33,7 @@ import se.face.moviews.asrqtest.data.JsonBuilderFromTemplate;
 @RunWith(Arquillian.class)
 public class MoviesTest {		
 	private static final String MOVIE_TO_SAVE = "templates/movieToSave.json";
+	private static final String MOVIE_UPDATE = "templates/movieUpdate.json";
 	private static final String MOVIE_SAVE_FAILS = "templates/movieSaveFails.json";
 	
 	private static final String JSON_UTF8 = ContentType.JSON.withCharset(Charset.forName("UTF-8"));
@@ -70,6 +71,31 @@ public class MoviesTest {
 		.then()
 			.statusCode(HttpStatus.CREATED.value())
 			.header("Location", containsString("/movies/"));
+	}
+	
+	@Test
+	public void moviesShouldBeUpdatedTest() throws IOException{
+		int id = saveNewMovie(movieTitle());
+		final String updatedTitle = movieTitle();
+		String json = JsonBuilderFromTemplate.file(MOVIE_UPDATE)
+				.param("updateMovieTitle", updatedTitle)
+				.param("updateMovieId", String.valueOf(id))
+				.buildJson();
+		given()
+			.body(json)
+			.contentType(JSON_UTF8)
+		.when()
+			.put(getRootPath() + "movies")
+		.then()
+			.statusCode(HttpStatus.NO_CONTENT.value());
+		
+		when()
+			.get(getRootPath() + "movies/"+id)
+		.then()
+			.statusCode(HttpStatus.OK.value())
+			.body("id", is(id))
+			.body("originalTitle", is(updatedTitle))
+			.body("plot", is("An integration test movie plot. (Updated)"));
 	}
 
 	@Test

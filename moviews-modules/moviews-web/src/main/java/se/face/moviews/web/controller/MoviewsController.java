@@ -20,7 +20,6 @@ import se.face.moviews.api.model.Movie;
 import se.face.moviews.api.model.Movies;
 import se.face.moviews.api.model.PingResponse;
 import se.face.moviews.core.service.MoviesService;
-import se.face.moviews.core.service.OMDBService;
 import se.face.moviews.web.util.ResponseBuilder;
 
 /**
@@ -50,12 +49,6 @@ public class MoviewsController {
 					.buildCreatedResponse(uriBuilder, PATH);
 	}
 	
-	@RequestMapping(value = "save/external/{id}", method = RequestMethod.POST)
-	public ResponseEntity<Movie> saveMovieByExternalId(@PathVariable String id, UriComponentsBuilder uriBuilder){
-		Movie movie = moviesService.getByImdbId(id);		
-		return saveMovie(movie, uriBuilder);
-	}
-	
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Movie> getMovie(@PathVariable int id){
 		logger.info("Retrieving movie with id: "+id);		
@@ -67,12 +60,26 @@ public class MoviewsController {
 		return new ResponseEntity<Movie>(movie, HttpStatus.OK);
 	}
 	
+	@RequestMapping(method = RequestMethod.PUT)
+	public ResponseEntity<Movie> updateMovie(@RequestBody Movie movie){
+		logger.info("Updating movie: "+movie.getId());		
+		moviesService.updateMovie(movie);
+		logger.info("Updated movie: "+movie.getId());
+		return new ResponseEntity<Movie>(HttpStatus.NO_CONTENT);
+	}
+	
 	@RequestMapping(value="/search", method = RequestMethod.GET)
 	public ResponseEntity<Movies> search(@RequestParam String query){
 		logger.info("Searching for: "+query);
 		Movies movies = moviesService.searchInternal(query);
 		logger.info("Search "+query+" resulted in "+movies.getList().size()+" hits");
 		return new ResponseEntity<Movies>(movies, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "save/external/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Movie> saveMovieByExternalId(@PathVariable String id, UriComponentsBuilder uriBuilder){
+		Movie movie = moviesService.getByImdbId(id);		
+		return saveMovie(movie, uriBuilder);
 	}
 	
 	@RequestMapping(value="/external/search", method = RequestMethod.GET)

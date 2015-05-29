@@ -57,6 +57,26 @@ public class MoviesServiceTest {
 		assertEquals(workingRoleInAnotherMovie.getPerson().getId(), 
 					 savedMovie.getWorkingRoles().get(0).getPerson().getId());
 	}
+	
+	@Test
+	public void updateMovieTest(){
+		final String newPlot = "No plot whatsoever";
+		Movie movie = TestObjectFactory.movieApi();
+		movie.setOriginalTitle("Other movie 2");
+		Movie savedMovie = moviesService.saveMovie(movie);
+		savedMovie.setPlot("No plot whatsoever");
+		savedMovie.addLanguage("Bulgarian");
+		savedMovie.addWorkingRole(new WorkingRole(new Person("Some", "One"), "SomeRole"));
+		
+		moviesService.updateMovie(savedMovie); 
+		
+		Movie updatedMovie = moviesService.getMovieById(savedMovie.getId());
+		
+		assertEquals(newPlot, updatedMovie.getPlot());
+		assertEquals(savedMovie.getId(), updatedMovie.getId());
+		assertEquals(movie.getWorkingRoles().size()+1, updatedMovie.getWorkingRoles().size());
+		assertEquals(movie.getLanguages().size()+1, updatedMovie.getLanguages().size());
+	}
 
 	private void assertMovieWithTwoCaCs(Movie movie) {
 		assertNotNull(movie.getId());
