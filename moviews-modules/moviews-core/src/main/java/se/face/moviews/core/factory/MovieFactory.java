@@ -133,7 +133,7 @@ public final class MovieFactory {
 			movie.setOriginalTitle(movieResponse.getTitle());
 			movie.setPlot(movieResponse.getPlot());
 			movie.setImdbId(movieResponse.getImdbID());
-			movie.setImdbRating(Float.parseFloat(movieResponse.getImdbRating()));
+			movie.setImdbRating(Double.parseDouble(movieResponse.getImdbRating()));
 			movie.setImdbVotes(Long.parseLong(movieResponse.getImdbVotes()));
 			try {
 				DateFormat df = new SimpleDateFormat("dd MMM yyyy", 

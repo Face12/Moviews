@@ -17,7 +17,6 @@
 		<javax.servlet.version>3.1.0</javax.servlet.version>
 		<junit.version>4.12</junit.version>
 		<jackson.version>1.9.13</jackson.version>
-		<mysql-connector.version>5.1.9</mysql-connector.version>
 		<slf4j.version>1.7.7</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
 		<httpclient.version>4.4.1</httpclient.version>
@@ -36,11 +35,10 @@
 				<artifactId>javax.servlet-api</artifactId>
 				<version>${javax.servlet.version}</version>
 			</dependency>
-
 			<dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>${mysql-connector.version}</version>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.4.186</version>
 			</dependency>
 
 			<dependency>
@@ -147,12 +145,6 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-test</artifactId>
 				<version>${spring.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.h2database</groupId>
-				<artifactId>h2</artifactId>
-				<version>1.4.186</version>
 				<scope>test</scope>
 			</dependency>
 		</dependencies>

@@ -53,8 +53,8 @@ public class Movie {
 	@Column
 	private String plot;
 	
-	@Column(scale = 2, precision = 2)
-	private Float imdbRating;
+	@Column
+	private Double imdbRating;
 	
 	@Column
 	private Long imdbVotes;
@@ -175,11 +175,11 @@ public class Movie {
 		this.plot = plot;
 	}
 
-	public Float getImdbRating() {
+	public Double getImdbRating() {
 		return imdbRating;
 	}
 
-	public void setImdbRating(Float imdbRating) {
+	public void setImdbRating(Double imdbRating) {
 		this.imdbRating = imdbRating;
 	}
 

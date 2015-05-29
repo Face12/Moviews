@@ -20,7 +20,7 @@ public class TestObjectFactory {
 		Movie movie = new Movie("The usual suspects (Entity)");
 		movie.setPlot("A kinda bief plot");
 		movie.setImdbId("ttHejOchHå");
-		movie.setImdbRating(8.300f);
+		movie.setImdbRating(8.300);
 		movie.setImdbVotes(12345L);
 		movie.setReleaseDate(new Date());
 		movie.setDateQuality(DateQuality.DAY);
@@ -41,7 +41,7 @@ public class TestObjectFactory {
 				new se.face.moviews.api.model.Movie("The usual suspects (API)");
 		movie.setPlot("A kinda bief plot");
 		movie.setImdbId("ttHejOchHå");
-		movie.setImdbRating(8.300f);
+		movie.setImdbRating(8.300);
 		movie.setImdbVotes(12345L);
 		movie.setReleaseDate(new Date());
 		movie.setDateQuality(se.face.moviews.api.model.DateQuality.DAY);

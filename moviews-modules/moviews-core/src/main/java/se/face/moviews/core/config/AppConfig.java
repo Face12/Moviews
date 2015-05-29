@@ -75,11 +75,17 @@ public class AppConfig {
 	public DataSource dataSource(){
 		final String dbURL = env.getProperty("db.url");
 		logger.info("Using database url: "+dbURL);
-		DriverManagerDataSource driverManagerDataSource = 
+		DriverManagerDataSource driverManagerDataSource=null;
+		if (env.getProperty("db.user") != null){
+			driverManagerDataSource = 
 				new DriverManagerDataSource(
 						dbURL, 
 						env.getProperty("db.user"), 
 						env.getProperty("db.password"));
+		}
+		else{
+			driverManagerDataSource = new DriverManagerDataSource(dbURL);
+		}
 		driverManagerDataSource.setDriverClassName(env.getProperty("db.driver"));
 
 		return driverManagerDataSource;

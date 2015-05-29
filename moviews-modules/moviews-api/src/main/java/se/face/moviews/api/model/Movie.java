@@ -24,7 +24,7 @@ public class Movie implements Resource {
 	private DateQuality dateQuality;
 	private Short runtimeMinutes;
 	private String plot;
-	private Float imdbRating;
+	private Double imdbRating;
 	private Long imdbVotes;
 	private Date lastUpdated;
 	private List<String> languages = new ArrayList<String>();
@@ -92,11 +92,11 @@ public class Movie implements Resource {
 		this.plot = plot;
 	}
 
-	public Float getImdbRating() {
+	public Double getImdbRating() {
 		return imdbRating;
 	}
 
-	public void setImdbRating(Float imdbRating) {
+	public void setImdbRating(Double imdbRating) {
 		this.imdbRating = imdbRating;
 	}
 
