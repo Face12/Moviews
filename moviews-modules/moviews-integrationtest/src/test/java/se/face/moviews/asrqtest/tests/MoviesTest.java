@@ -50,7 +50,12 @@ public class MoviesTest {
 	private URL baseURI;
 	
 	private String getRootPath(){
-		return baseURI.toExternalForm();
+		String rootPath = baseURI.toExternalForm();
+		if (!rootPath.endsWith("/"))
+		{
+			rootPath = rootPath+"/";
+		}
+		return rootPath;
 	}
 	
 	@Test

@@ -134,7 +134,7 @@ public final class MovieFactory {
 			movie.setPlot(movieResponse.getPlot());
 			movie.setImdbId(movieResponse.getImdbID());
 			movie.setImdbRating(Double.parseDouble(movieResponse.getImdbRating()));
-			movie.setImdbVotes(Long.parseLong(movieResponse.getImdbVotes()));
+			movie.setImdbVotes(Long.parseLong(trimNumberString(movieResponse.getImdbVotes())));
 			try {
 				DateFormat df = new SimpleDateFormat("dd MMM yyyy", 
 						DateFormatSymbols.getInstance(new Locale("en-US")));
@@ -187,5 +187,9 @@ public final class MovieFactory {
 			list.add(s.trim());
 		}
 		return list;
+	}
+
+	private static String trimNumberString(String imdbVotes) {
+		return imdbVotes.replaceAll("[,. ]", "");
 	}
 }
