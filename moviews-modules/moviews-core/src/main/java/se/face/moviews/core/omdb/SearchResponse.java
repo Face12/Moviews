@@ -3,6 +3,7 @@ package se.face.moviews.core.omdb;
 
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -10,6 +11,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
  * @author Samuel
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SearchResponse{
 	@JsonProperty("Search")
    	private List<Search> search;

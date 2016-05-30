@@ -28,7 +28,7 @@ public class IMDBHTMLClientImpl implements IMDBHTMLClient {
 					.get();
 		} catch (HttpStatusException e){
 			int statusCode = e.getStatusCode();
-			if (statusCode == 404){
+			if (statusCode == 404 || statusCode == 403){
 				return null;
 			}
 			throw new RuntimeException(e);
