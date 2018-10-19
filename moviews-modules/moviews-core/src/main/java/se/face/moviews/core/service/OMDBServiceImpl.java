@@ -24,8 +24,8 @@ import se.face.moviews.core.util.HTTPUtils;
  */
 @Service
 public class OMDBServiceImpl implements OMDBService{
-	private static final String URL_GET_TEMPLATE = "http://www.omdbapi.com/?plot=short&r=json&type=Movie&i={imdbid}";
-	private static final String URL_SEARCH_TEMPLATE = "http://www.omdbapi.com/?r=json&type=Movie&s={title}";
+	private static final String URL_GET_TEMPLATE = "http://www.omdbapi.com/?apikey=da20ec20&plot=short&r=json&type=Movie&i={imdbid}";
+	private static final String URL_SEARCH_TEMPLATE = "http://www.omdbapi.com/?apikey=da20ec20&r=json&type=Movie&s={title}";
 	
 	@Override
 	public Movies searchByTitle(String title) {

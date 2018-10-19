@@ -42,7 +42,9 @@ public class IMDBServiceImpl implements IMDBService {
 			Elements headers = document.select("h4.dataHeaderWithBorder");
 			
 			for (Element header: headers){
-				final String headerText = trimWhiteSpaceHTML(header.ownText());
+				final String headerText = 
+						removeSpans(
+								trimWhiteSpaceHTML(header.ownText()));
 				Element table = header.nextElementSibling();
 				switch (headerText){
 					case DIRECTOR_HEADER:				
@@ -74,10 +76,15 @@ public class IMDBServiceImpl implements IMDBService {
 								.contains(ACTOR_UNCREDITED_START)){
 								break;
 							}
-							Element actorSpan = row.select("td[itemprop=actor] span[itemprop=name]").first();
-							if (actorSpan != null){
-								String actorText = actorSpan.ownText();
-								ret.add(WorkingRoleFactory.createApiByFullName(trimWhiteSpaceHTML(actorText), "Actor"));
+							Element actorTd = row.select("td:not([class])")
+												 .first();
+							if (actorTd != null){
+								Element actorAnchor = actorTd.select("a").first();
+								if (actorAnchor != null)
+								{
+									String actorText = actorAnchor.ownText();
+									ret.add(WorkingRoleFactory.createApiByFullName(trimWhiteSpaceHTML(actorText), "Actor"));
+								}
 							}
 						}
 						break;
@@ -85,6 +92,12 @@ public class IMDBServiceImpl implements IMDBService {
 			}
 		}
 		return ret;
+	}
+
+	private String removeSpans(String text) {
+		return text
+				.replaceAll("\\<span\\>[^\\<]*\\<\\/span\\>", "")
+				.trim();
 	}
 
 	private void addSimple(List<WorkingRole> ret, Element table, String role) {

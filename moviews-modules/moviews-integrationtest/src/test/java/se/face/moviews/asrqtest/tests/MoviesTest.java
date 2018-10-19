@@ -177,7 +177,7 @@ public class MoviesTest {
 	@Test
 	public void shouldGetExternalMovieByImdbId(){
 		final String imdbId = "tt0103064";
-		final String expectedTitle = "Terminator 2: Judgment Day";
+		final String expectedTitle = "Terminator 2";
 		when()
 			.get(getRootPath() + "movies/external/"+imdbId)
 		.then()
