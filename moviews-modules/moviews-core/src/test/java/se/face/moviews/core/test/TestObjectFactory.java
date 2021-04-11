@@ -19,7 +19,7 @@ public class TestObjectFactory {
 	public static Movie movieEntity() {
 		Movie movie = new Movie("The usual suspects (Entity)");
 		movie.setPlot("A kinda bief plot");
-		movie.setImdbId("ttHejOchHå");
+		movie.setImdbId("ttHejOchHo");
 		movie.setImdbRating(8.300);
 		movie.setImdbVotes(12345L);
 		movie.setReleaseDate(new Date());
@@ -40,7 +40,7 @@ public class TestObjectFactory {
 		se.face.moviews.api.model.Movie movie = 
 				new se.face.moviews.api.model.Movie("The usual suspects (API)");
 		movie.setPlot("A kinda bief plot");
-		movie.setImdbId("ttHejOchHå");
+		movie.setImdbId("ttHejOchHo");
 		movie.setImdbRating(8.300);
 		movie.setImdbVotes(12345L);
 		movie.setReleaseDate(new Date());

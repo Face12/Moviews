@@ -32,9 +32,9 @@ public class WorkingRoleDaoTest {
 	@Transactional
 	@Test
 	public void shouldMatchExactName(){
-		List<WorkingRole> johnDoes = workingRoleDao.searchByName("Jane Doe");
+		List<WorkingRole> johnDoes = workingRoleDao.searchByName("John Doe");
 		
 		assertEquals(1, johnDoes.size());
-		assertEquals(102, johnDoes.get(0).getWorkingRoleId().intValue());
+		assertEquals(101, johnDoes.get(0).getWorkingRoleId().intValue());
 	}
 }

@@ -16,9 +16,9 @@ import se.face.moviews.core.util.NameParser.ParseResult;
 public class NameParserTest {
 	@Test
 	public void shouldRemoveDescription(){
-		ParseResult result = NameParser.parseFullName("Alejandro González Iñárritu (idea)");
+		ParseResult result = NameParser.parseFullName("Alejandro GonzÃ¡lez IÃ±arritu (idea)");
 		assertEquals("Alejandro", result.getFirstName());
-		assertEquals("González Iñárritu", result.getLastName());
+		assertEquals("GonzÃ¡lez IÃ±arritu", result.getLastName());
 	}
 	
 	@Test
