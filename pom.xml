@@ -21,6 +21,7 @@
 		<slf4j.version>1.7.7</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
 		<httpclient.version>4.5.13</httpclient.version>
+		<jsoup.version>1.14.3</jsoup.version>
 	</properties>
 
 	<dependencyManagement>
@@ -85,11 +86,13 @@
 				<artifactId>httpclient</artifactId>
 				<version>${httpclient.version}</version>
 			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
 			<dependency>
 				<groupId>org.jsoup</groupId>
 				<artifactId>jsoup</artifactId>
-				<version>1.8.2</version>
+				<version>${jsoup.version}</version>
 			</dependency>
+
 
 
 			<!-- Spring -->
