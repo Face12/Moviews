@@ -3,7 +3,8 @@
  */
 package se.face.moviews.api.model;
 
-import org.codehaus.jackson.annotate.JsonValue;
+
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * @author Samuel

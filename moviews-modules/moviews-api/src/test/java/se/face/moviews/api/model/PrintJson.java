@@ -3,8 +3,8 @@
  */
 package se.face.moviews.api.model;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.ObjectWriter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.Test;
 
 /**
@@ -15,7 +15,7 @@ public class PrintJson {
 	@Test
 	public void printMovieJson() throws Exception{
 		ObjectMapper mapper = new ObjectMapper();
-		ObjectWriter writer = mapper.writerWithType(Movie.class)
+		ObjectWriter writer = mapper.writerFor(Movie.class)
 			  .withDefaultPrettyPrinter();
 		
 		
